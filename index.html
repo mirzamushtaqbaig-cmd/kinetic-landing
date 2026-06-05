@@ -73,6 +73,89 @@
             </div>
         </div>
 
+        <!-- SECTION A: WHAT KINETIC IS -->
+        <div class="max-w-6xl mx-auto mt-32 border-t border-gray-800 pt-16">
+            <div class="text-emerald-500 font-bold mb-4 uppercase tracking-widest text-sm flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                Category Definition
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">What <span class="text-emerald-400">Kinetic</span> Is</h2>
+            <p class="text-gray-400 text-lg max-w-3xl leading-relaxed mb-12">
+                Kinetic is a <strong>Guardian Agent Platform</strong>—a category defined by Gartner in their Feb 2026 Market Guide. It is an independent governance microservice that intercepts every AI agent tool call before execution and enforces externalized policy. 
+                <br><br>
+                <span class="text-sm uppercase tracking-widest text-emerald-500/70">Works Above: Microsoft Copilot Studio · Azure AI Foundry · LangGraph · AutoGen · CrewAI</span>
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                <div class="cyber-border p-6 rounded-lg">
+                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">Gartner Definition · Feb 2026</div>
+                    <h3 class="text-lg font-bold text-white mb-2">The Guardian Agent Category</h3>
+                    <p class="text-gray-400 text-sm">"A blend of AI governance and AI runtime controls in the AI TRiSM framework that supports automated, trustworthy, and secure AI agent activities and outcomes."</p>
+                </div>
+                <div class="cyber-border p-6 rounded-lg">
+                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">The Architectural Difference</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Network-Isolated. Out-of-Process.</h3>
+                    <p class="text-gray-400 text-sm">Microsoft and LangChain run governance in-process. Kinetic runs out-of-process at the network layer. An agent cannot disable governance it cannot reach. This is a strict compliance requirement.</p>
+                </div>
+            </div>
+
+            <!-- Stat Strip -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded text-center">
+                    <div class="text-4xl font-bold text-white mb-2">70%</div>
+                    <p class="text-xs text-gray-400">of orgs will rely on independent guardian agents by 2029.</p>
+                    <div class="text-[10px] text-emerald-500/50 mt-4 uppercase">Gartner, Feb 2026</div>
+                </div>
+                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded text-center">
+                    <div class="text-4xl font-bold text-white mb-2">75%</div>
+                    <p class="text-xs text-gray-400">of enterprise leaders cite security & auditability as the top AI blocker.</p>
+                    <div class="text-[10px] text-emerald-500/50 mt-4 uppercase">KPMG AI Survey, 2026</div>
+                </div>
+                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded text-center">
+                    <div class="text-4xl font-bold text-white mb-2">80%</div>
+                    <p class="text-xs text-gray-400">of unauthorized AI transactions will stem from internal policy violations.</p>
+                    <div class="text-[10px] text-emerald-500/50 mt-4 uppercase">Gartner, Feb 2026</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION B: THE INDEPENDENCE ARGUMENT -->
+        <div class="max-w-6xl mx-auto mt-16 border-t border-gray-800 pt-16">
+            <div class="text-emerald-500 font-bold mb-4 uppercase tracking-widest text-sm flex items-center gap-2">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                The Structural Argument
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">The <span class="text-emerald-400">Independence</span> Argument</h2>
+
+            <div class="border-l-4 border-emerald-500 bg-emerald-500/5 p-8 mb-12 rounded-r-lg">
+                <blockquote class="text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed">
+                    "A system cannot generate <strong class="text-white font-bold">tamper-evident compliance records</strong> about its own behavior within the same trust boundary. A bank cannot sign its own audit opinion."
+                </blockquote>
+                <div class="text-emerald-500 text-xs uppercase tracking-widest mt-4">— The Kinetic Independence Principle</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="cyber-border p-6 rounded-lg">
+                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">01 — Liability Gap</div>
+                    <h4 class="font-bold text-white mb-2">Microsoft places liability on you</h4>
+                    <p class="text-gray-400 text-sm">Copilot Studio and Azure AI run governance inside the same trust boundary as the agents. They cannot provide independent evidence to regulators.</p>
+                </div>
+                <div class="cyber-border p-6 rounded-lg">
+                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">02 — Audit Evidence Gap</div>
+                    <h4 class="font-bold text-white mb-2">Frameworks ≠ Runtime Evidence</h4>
+                    <p class="text-gray-400 text-sm">Advisory frameworks state what you planned to govern. Kinetic's Cryptographic Ledger proves what your agents actually did via a verifiable SHA-256 hash chain.</p>
+                </div>
+            </div>
+
+            <!-- OSFI Wedge -->
+            <div class="bg-gray-900 border border-gray-700 p-8 rounded-lg relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent"></div>
+                <div class="text-xs uppercase tracking-widest text-emerald-400 mb-3">⚖ Regulatory Anchor — OSFI Guideline E-23</div>
+                <p class="text-gray-300 text-sm leading-relaxed">
+                    OSFI's final Guideline E-23 (effective May 2027) applies to all FRFIs and third-party AI models. It requires ongoing runtime monitoring, not just point-in-time assessments. <strong>Kinetic is the runtime monitoring layer that makes any FRFI's AI posture continuously defensible at examination.</strong>
+                </p>
+            </div>
+        </div>
         <!-- Leadership & Contact Section -->
         <div id="leadership" class="max-w-4xl mx-auto mt-32 mb-12 scroll-mt-24">
             <div class="text-center mb-10">
