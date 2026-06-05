@@ -1,205 +1,618 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kinetic AI Labs | The Independent Guardian Agent</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
-        body { font-family: 'JetBrains Mono', monospace; background-color: #030712; color: #f3f4f6; }
-        .cyber-border { border: 1px solid rgba(16, 185, 129, 0.2); background: rgba(17, 24, 39, 0.5); }
-        .cyber-border:hover { border-color: rgba(16, 185, 129, 0.5); box-shadow: 0 0 20px rgba(16, 185, 129, 0.1); }
-        .text-glow { text-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kinetic AI Labs | Independent AI Governance for Regulated Enterprises</title>
+  <meta name="description" content="Network-isolated AI governance for BMA, OSFI, and DIFC regulated enterprises. Real-time kill-switch. Cryptographic audit ledger. Sovereign deployment." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --teal:     #00c2cb;
+      --teal-dim: rgba(0,194,203,0.10);
+      --gold:     #c9a227;
+      --red:      #e05252;
+      --bg:       #030b15;
+      --bg2:      #071422;
+      --bg3:      #0c1d30;
+      --border:   rgba(0,194,203,0.15);
+      --muted:    #6a8fa8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: #e8f0f8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* ── SCANLINE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── GLOW PULSE ── */
+    @keyframes pulse-dot {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.35; transform:scale(0.65); }
+    }
+    .pulse { animation: pulse-dot 2.2s ease-in-out infinite; }
+
+    /* ── FADE IN ── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay:0.15s; }
+    .delay-2 { animation-delay:0.30s; }
+    .delay-3 { animation-delay:0.45s; }
+    .delay-4 { animation-delay:0.60s; }
+
+    /* ── CARD ── */
+    .card {
+      border: 1px solid var(--border);
+      background: var(--bg2);
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .card:hover {
+      border-color: rgba(0,194,203,0.35);
+      box-shadow: 0 0 24px rgba(0,194,203,0.07);
+    }
+    .card-top { border-top: 2px solid var(--teal); }
+    .card-top-gold { border-top: 2px solid var(--gold); }
+    .card-top-red  { border-top: 2px solid var(--red); }
+
+    /* ── PILL LABEL ── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: var(--teal-dim);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+    }
+    .pill-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    /* ── SECTION LABEL ── */
+    .sec-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .sec-label::before {
+      content:'';
+      display:inline-block;
+      width:5px; height:5px;
+      border-radius:50%;
+      background:var(--teal);
+      animation: pulse-dot 2.2s ease-in-out infinite;
+    }
+
+    /* ── BLOCKQUOTE ── */
+    .bq {
+      border-left: 3px solid var(--gold);
+      background: linear-gradient(135deg,rgba(201,162,39,0.06),var(--bg2));
+      padding: 32px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .bq::before {
+      content:'\201C';
+      font-family:'JetBrains Mono',monospace;
+      font-size:110px;
+      color:rgba(201,162,39,0.09);
+      position:absolute;
+      top:4px; left:16px;
+      line-height:1;
+      pointer-events:none;
+    }
+
+    /* ── CTA BTN ── */
+    .cta-btn {
+      display:inline-block;
+      font-family:'JetBrains Mono',monospace;
+      font-size:12px;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      color:#fff;
+      background: var(--teal);
+      padding: 16px 32px;
+      border: 1px solid rgba(0,194,203,0.6);
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: 0 0 18px rgba(0,194,203,0.25);
+    }
+    .cta-btn:hover {
+      background: rgba(0,194,203,0.85);
+      box-shadow: 0 0 30px rgba(0,194,203,0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ── OSFI WEDGE ── */
+    .osfi-wedge {
+      background: linear-gradient(135deg,rgba(201,162,39,0.08),var(--bg3));
+      border: 1px solid rgba(201,162,39,0.25);
+      border-left: 3px solid var(--gold);
+    }
+
+    /* ── DEADLINE BAR ── */
+    .deadline-bar {
+      background: rgba(224,82,82,0.08);
+      border: 1px solid rgba(224,82,82,0.25);
+      border-left: 3px solid var(--red);
+    }
+
+    /* ── COMPATIBILITY TAGS ── */
+    .compat-tag {
+      font-family:'JetBrains Mono',monospace;
+      font-size:11px;
+      color:var(--teal);
+      background:var(--teal-dim);
+      border:1px solid var(--border);
+      padding:4px 10px;
+      white-space:nowrap;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background:rgba(3,11,21,0.85);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+
+    /* ── STAT BOX ── */
+    .stat-box {
+      background:var(--bg3);
+      border:1px solid var(--border);
+      padding: 28px 24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .stat-box::before {
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;height:2px;
+    }
+    .stat-teal::before  { background:linear-gradient(90deg,var(--teal),transparent); }
+    .stat-gold::before  { background:linear-gradient(90deg,var(--gold),transparent); }
+    .stat-red::before   { background:linear-gradient(90deg,var(--red),transparent); }
+
+    .stat-num {
+      font-family:'JetBrains Mono',monospace;
+      font-size:clamp(32px,5vw,46px);
+      font-weight:700;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    hr.subtle { border:none; border-top:1px solid var(--border); }
+
+    @media(max-width:680px) {
+      .bq { padding:24px 20px; }
+    }
+  </style>
 </head>
-<body class="antialiased selection:bg-emerald-500 selection:text-white flex flex-col min-h-screen">
+<body>
 
-    <!-- Navigation -->
-    <nav class="w-full border-b border-gray-800 bg-gray-950/80 backdrop-blur-md fixed top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-bold text-xl tracking-tighter flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
-                KINETIC AI LABS
-            </div>
-            <a href="#leadership" class="text-xs uppercase tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors hidden md:block">
-                [ Access Leadership ]
-            </a>
-        </div>
-    </nav>
+<!-- ══════════════════════════════════════════
+     NAV
+     ══════════════════════════════════════════ -->
+<nav class="fixed top-0 w-full z-50">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="mono font-bold text-lg tracking-tight flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full pulse" style="background:var(--teal)"></span>
+      KINETIC AI LABS
+    </div>
+    <a href="mailto:mirza@kineticlabs.ai?subject=Regulatory%20Briefing%20Request"
+       class="mono text-xs uppercase tracking-widest hidden md:block transition-colors"
+       style="color:var(--teal);">
+      [ Request Briefing ]
+    </a>
+  </div>
+</nav>
 
-    <!-- Hero Section -->
-    <main class="flex-grow pt-32 pb-12 px-6">
-        <div class="max-w-4xl mx-auto text-center space-y-8">
-            <div class="inline-block border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 px-4 py-1 rounded-full text-xs uppercase tracking-widest mb-4">
-                Category: Guardian Agent Platform
-            </div>
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                Prevent the Crime.<br>
-                <span class="text-emerald-500 text-glow">Don't Just Record It.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                Sovereign, network-isolated AI governance for BMA, OSFI, and DIFC regulated enterprises. We provide the independent oversight your AI needs and regulators demand.
-            </p>
-        </div>
 
-        <!-- 3 Pillars Grid -->
-        <div class="max-w-6xl mx-auto mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Pillar 1 -->
-            <div class="cyber-border p-8 rounded-lg transition-all duration-300">
-                <div class="text-emerald-500 text-2xl mb-4">🛑</div>
-                <h3 class="text-xl font-bold text-white mb-3">Real-Time Kill-Switch</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Native AI tools log rogue actions after the data leaves the building. Kinetic intercepts AI tool execution in milliseconds, physically preventing unauthorized actions and hallucinations before they occur.
-                </p>
-            </div>
-            
-            <!-- Pillar 2 -->
-            <div class="cyber-border p-8 rounded-lg transition-all duration-300">
-                <div class="text-emerald-500 text-2xl mb-4">⛓️</div>
-                <h3 class="text-xl font-bold text-white mb-3">Cryptographic Ledger</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    The ultimate "Flight Data Recorder" for your AI. Every governance decision is secured on a tamper-evident SHA-256 hash chain. Provide mathematical proof of compliance directly to auditors.
-                </p>
-            </div>
+<!-- ══════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════ -->
+<section class="pt-36 pb-20 px-6 text-center">
+  <div class="max-w-3xl mx-auto space-y-7">
 
-            <!-- Pillar 3 -->
-            <div class="cyber-border p-8 rounded-lg transition-all duration-300">
-                <div class="text-emerald-500 text-2xl mb-4">🏰</div>
-                <h3 class="text-xl font-bold text-white mb-3">Sovereign Deployment</h3>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                     Designed for highly regulated financials, Big 4 audit standards, and sovereign deployments. Zero data extraction to public clouds. 100% locally contained infrastructure for total balance sheet and IP protection.
-                </p>
-            </div>
-        </div>
+    <div class="fade-up">
+      <span class="pill">
+        <span class="pill-dot pulse"></span>
+        Guardian Agent Platform
+      </span>
+    </div>
 
-        <!-- SECTION A: WHAT KINETIC IS -->
-        <div class="max-w-6xl mx-auto mt-32 border-t border-gray-800 pt-16">
-            <div class="text-emerald-500 font-bold mb-4 uppercase tracking-widest text-sm flex items-center gap-2">
-                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                Category Definition
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">What <span class="text-emerald-400">Kinetic</span> Is</h2>
-            <p class="text-gray-400 text-lg max-w-3xl leading-relaxed mb-12">
-                Kinetic is a <strong>Guardian Agent Platform</strong>—a category defined by Gartner in their Feb 2026 Market Guide. It is an independent governance microservice that intercepts every AI agent tool call before execution and enforces externalized policy. 
-                <br><br>
-                <span class="text-sm uppercase tracking-widest text-emerald-500/70">Works Above: Microsoft Copilot Studio · Azure AI Foundry · LangGraph · AutoGen · CrewAI</span>
-            </p>
+    <h1 class="mono font-extrabold leading-tight fade-up delay-1"
+        style="font-size:clamp(32px,6vw,58px);">
+      Prevent the Crime.<br>
+      <span style="color:var(--teal);">Don't Just Record It.</span>
+    </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-                <div class="cyber-border p-6 rounded-lg">
-                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">Gartner Definition · Feb 2026</div>
-                    <h3 class="text-lg font-bold text-white mb-2">The Guardian Agent Category</h3>
-                    <p class="text-gray-400 text-sm">"A blend of AI governance and AI runtime controls in the AI TRiSM framework that supports automated, trustworthy, and secure AI agent activities and outcomes."</p>
-                </div>
-                <div class="cyber-border p-6 rounded-lg">
-                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">The Architectural Difference</div>
-                    <h3 class="text-lg font-bold text-white mb-2">Network-Isolated. Out-of-Process.</h3>
-                    <p class="text-gray-400 text-sm">Microsoft and LangChain run governance in-process. Kinetic runs out-of-process at the network layer. An agent cannot disable governance it cannot reach. This is a strict compliance requirement.</p>
-                </div>
-            </div>
+    <p class="text-base md:text-lg leading-relaxed fade-up delay-2"
+       style="color:var(--muted); max-width:580px; margin:0 auto;">
+      Sovereign, network-isolated AI governance for 
+      <strong style="color:#e8f0f8;">BMA</strong>, 
+      <strong style="color:#e8f0f8;">OSFI</strong>, and 
+      <strong style="color:#e8f0f8;">DIFC</strong> regulated enterprises.
+      We provide the independent oversight your AI agents need —
+      and your regulators require.
+    </p>
 
-            <!-- Stat Strip -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded text-center">
-                    <div class="text-4xl font-bold text-white mb-2">70%</div>
-                    <p class="text-xs text-gray-400">of orgs will rely on independent guardian agents by 2029.</p>
-                    <div class="text-[10px] text-emerald-500/50 mt-4 uppercase">Gartner, Feb 2026</div>
-                </div>
-                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded text-center">
-                    <div class="text-4xl font-bold text-white mb-2">75%</div>
-                    <p class="text-xs text-gray-400">of enterprise leaders cite security & auditability as the top AI blocker.</p>
-                    <div class="text-[10px] text-emerald-500/50 mt-4 uppercase">KPMG AI Survey, 2026</div>
-                </div>
-                <div class="bg-gray-900/50 border border-gray-800 p-6 rounded text-center">
-                    <div class="text-4xl font-bold text-white mb-2">80%</div>
-                    <p class="text-xs text-gray-400">of unauthorized AI transactions will stem from internal policy violations.</p>
-                    <div class="text-[10px] text-emerald-500/50 mt-4 uppercase">Gartner, Feb 2026</div>
-                </div>
-            </div>
-        </div>
+    <div class="fade-up delay-3 pt-4">
+      <a href="https://calendly.com/mirza-kineticlabs/30min"
+         class="cta-btn">
+        Book a 30-Minute Regulatory Briefing ➔
+      </a>
+      <p class="mono mt-4 text-xs" style="color:rgba(106,143,168,0.6);">
+        Trusted by enterprise teams in Bermuda, Canada, and the UAE.
+      </p>
+    </div>
 
-        <!-- SECTION B: THE INDEPENDENCE ARGUMENT -->
-        <div class="max-w-6xl mx-auto mt-16 border-t border-gray-800 pt-16">
-            <div class="text-emerald-500 font-bold mb-4 uppercase tracking-widest text-sm flex items-center gap-2">
-                <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                The Structural Argument
-            </div>
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">The <span class="text-emerald-400">Independence</span> Argument</h2>
+  </div>
+</section>
 
-            <div class="border-l-4 border-emerald-500 bg-emerald-500/5 p-8 mb-12 rounded-r-lg">
-                <blockquote class="text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed">
-                    "A system cannot generate <strong class="text-white font-bold">tamper-evident compliance records</strong> about its own behavior within the same trust boundary. A bank cannot sign its own audit opinion."
-                </blockquote>
-                <div class="text-emerald-500 text-xs uppercase tracking-widest mt-4">— The Kinetic Independence Principle</div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <div class="cyber-border p-6 rounded-lg">
-                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">01 — Liability Gap</div>
-                    <h4 class="font-bold text-white mb-2">Microsoft places liability on you</h4>
-                    <p class="text-gray-400 text-sm">Copilot Studio and Azure AI run governance inside the same trust boundary as the agents. They cannot provide independent evidence to regulators.</p>
-                </div>
-                <div class="cyber-border p-6 rounded-lg">
-                    <div class="text-xs uppercase tracking-widest text-emerald-500 mb-2">02 — Audit Evidence Gap</div>
-                    <h4 class="font-bold text-white mb-2">Frameworks ≠ Runtime Evidence</h4>
-                    <p class="text-gray-400 text-sm">Advisory frameworks state what you planned to govern. Kinetic's Cryptographic Ledger proves what your agents actually did via a verifiable SHA-256 hash chain.</p>
-                </div>
-            </div>
+<!-- ══════════════════════════════════════════
+     THREE PILLARS
+     ══════════════════════════════════════════ -->
+<section class="py-16 px-6">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-px">
 
-            <!-- OSFI Wedge -->
-            <div class="bg-gray-900 border border-gray-700 p-8 rounded-lg relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent"></div>
-                <div class="text-xs uppercase tracking-widest text-emerald-400 mb-3">⚖ Regulatory Anchor — OSFI Guideline E-23</div>
-                <p class="text-gray-300 text-sm leading-relaxed">
-                    OSFI's final Guideline E-23 (effective May 2027) applies to all FRFIs and third-party AI models. It requires ongoing runtime monitoring, not just point-in-time assessments. <strong>Kinetic is the runtime monitoring layer that makes any FRFI's AI posture continuously defensible at examination.</strong>
-                </p>
-            </div>
-        </div>
-        <!-- Leadership & Contact Section -->
-        <div id="leadership" class="max-w-4xl mx-auto mt-32 mb-12 scroll-mt-24">
-            <div class="text-center mb-10">
-                <h2 class="text-2xl font-bold text-white tracking-tight">Direct Access</h2>
-                <p class="text-gray-400 text-sm mt-2">Connect with the leadership team for technical deep-dives or commercial partnerships.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Engineering Contact -->
-                <div class="cyber-border p-8 rounded-lg flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-emerald-400 font-bold text-xl">Mirza Mushtaq Baig</h3>
-                        <div class="text-white text-xs uppercase tracking-widest mt-1 mb-4 opacity-80">CTO & Head of AI</div>
-                        <p class="text-gray-400 text-sm mb-8 leading-relaxed">
-                            Lead contact for technical architecture, cryptographic ledger integration, threat modeling, and sovereign UAE/Canada deployments.
-                        </p>
-                    </div>
-                    <a href="mailto:mirzamushtaqbaig@gmail.com?subject=Kinetic%20AI:%20Engineering%20&%20Architecture" class="inline-block border border-emerald-500/50 hover:bg-emerald-500/10 text-emerald-400 text-sm font-bold py-3 px-4 rounded text-center transition-colors">
-                        [ Email Engineering ]
-                    </a>
-                </div>
+    <div class="card card-top p-8">
+      <div class="text-2xl mb-4">🛑</div>
+      <h3 class="mono font-bold text-white text-base mb-3">Real-Time Kill-Switch</h3>
+      <p class="text-sm leading-relaxed" style="color:var(--muted);">
+        Native AI tools log rogue actions <em>after</em> the data leaves the building.
+        Kinetic intercepts AI tool execution in milliseconds, physically preventing
+        unauthorized actions and hallucinations <strong style="color:#e8f0f8;">before they occur.</strong>
+      </p>
+    </div>
 
-                <!-- VC & Advisory Contact -->
-                <div class="cyber-border p-8 rounded-lg flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-emerald-400 font-bold text-xl">Tariq (Certus Group)</h3>
-                        <div class="text-white text-xs uppercase tracking-widest mt-1 mb-4 opacity-80">Advisory & VC Relations</div>
-                        <p class="text-gray-400 text-sm mb-8 leading-relaxed">
-                            Lead contact for enterprise pilot programs, Big 4 advisory channel partnerships, investor relations, and capital deployment.
-                        </p>
-                    </div>
-                    <a href="mailto:tariq@certusgrp.com?subject=Kinetic%20AI:%20Advisory%20&%20Partnerships" class="inline-block border border-emerald-500/50 hover:bg-emerald-500/10 text-emerald-400 text-sm font-bold py-3 px-4 rounded text-center transition-colors">
-                        [ Email Advisory ]
-                    </a>
-                </div>
-            </div>
-        </div>
-    </main>
+    <div class="card card-top-gold p-8">
+      <div class="text-2xl mb-4">⛓️</div>
+      <h3 class="mono font-bold text-white text-base mb-3">Cryptographic Execution Ledger</h3>
+      <p class="text-sm leading-relaxed" style="color:var(--muted);">
+        The "Flight Data Recorder" for your AI agents. Every governance decision is secured
+        on a tamper-evident SHA-256 hash chain. Provide 
+        <strong style="color:#e8f0f8;">mathematical proof of compliance</strong>
+        directly to auditors — independently verifiable without Kinetic's involvement.
+      </p>
+    </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 bg-black mt-auto py-8 text-center text-gray-600 text-xs">
-        <p>© 2026 Kinetic AI Labs. All rights reserved.</p>
-        <p class="mt-2">Independent IV&V for Enterprise AI Systems.</p>
-    </footer>
+    <div class="card card-top-red p-8">
+      <div class="text-2xl mb-4">🏰</div>
+      <h3 class="mono font-bold text-white text-base mb-3">Sovereign Deployment</h3>
+      <p class="text-sm leading-relaxed" style="color:var(--muted);">
+        Designed for highly regulated financials, Big 4 audit standards, and sovereign
+        deployments. <strong style="color:#e8f0f8;">Zero data extraction to public clouds.</strong>
+        100% locally contained infrastructure for total balance sheet and IP protection.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="max-w-6xl mx-auto px-6"><hr class="subtle" /></div>
+
+
+<!-- ══════════════════════════════════════════
+     THE GOVERNANCE PROBLEM
+     ══════════════════════════════════════════ -->
+<section class="py-20 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="sec-label">The Governance Gap</div>
+
+    <h2 class="mono font-bold mb-4"
+        style="font-size:clamp(22px,3.5vw,34px); line-height:1.2;">
+      Your AI Agents Are Running.<br>
+      <span style="color:var(--teal);">Your Governance Infrastructure Is Not.</span>
+    </h2>
+
+    <p class="mb-12 text-base leading-relaxed" style="color:var(--muted); max-width:640px;">
+      75% of enterprise leaders cite security, compliance, and auditability as their most
+      critical requirements for AI agent deployment — and the primary reason agents are
+      not yet in production at regulated institutions.
+      <span class="mono text-xs block mt-2" style="color:rgba(106,143,168,0.5);">
+        SOURCE: KPMG ENTERPRISE AI SURVEY, 2026
+      </span>
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-px mb-12">
+
+      <div class="card p-7">
+        <div class="mono text-xs mb-2" style="color:var(--teal); letter-spacing:.1em; text-transform:uppercase;">The Deployment Reality</div>
+        <h3 class="mono font-bold text-white text-sm mb-3">Compliance Is the Bottleneck</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted);">
+          AI agents are already executing tasks, interacting with APIs, and accessing
+          sensitive data across your enterprise. The question is not whether they are running.
+          The question is whether your governance infrastructure can 
+          <strong style="color:#e8f0f8;">prove to a regulator that they ran correctly</strong>.
+        </p>
+      </div>
+
+      <div class="card p-7">
+        <div class="mono text-xs mb-2" style="color:var(--teal); letter-spacing:.1em; text-transform:uppercase;">The Architectural Requirement</div>
+        <h3 class="mono font-bold text-white text-sm mb-3">Out-of-Process. Network-Isolated.</h3>
+        <p class="text-sm leading-relaxed" style="color:var(--muted);">
+          Microsoft and LangChain run governance <strong style="color:#e8f0f8;">in-process</strong> —
+          inside the same execution boundary as the agents they govern.
+          Kinetic runs at the <strong style="color:#e8f0f8;">network layer</strong>, outside the
+          agent's environment entirely. An agent cannot disable governance it cannot reach.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Compatibility -->
+    <div class="card p-5 flex flex-wrap items-center gap-4">
+      <span class="mono text-xs" style="color:var(--muted); letter-spacing:.1em; text-transform:uppercase; white-space:nowrap;">
+        Works above →
+      </span>
+      <div class="flex flex-wrap gap-2">
+        <span class="compat-tag">Microsoft Copilot Studio</span>
+        <span class="compat-tag">Azure AI Foundry</span>
+        <span class="compat-tag">LangChain / LangGraph</span>
+        <span class="compat-tag">AutoGen</span>
+        <span class="compat-tag">CrewAI</span>
+        <span class="compat-tag">Any MCP-Compatible Agent</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="max-w-6xl mx-auto px-6"><hr class="subtle" /></div>
+
+
+<!-- ══════════════════════════════════════════
+     THE INDEPENDENCE ARGUMENT
+     ══════════════════════════════════════════ -->
+<section class="py-20 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="sec-label">Audit Defensibility</div>
+
+    <h2 class="mono font-bold mb-10"
+        style="font-size:clamp(22px,3.5vw,34px); line-height:1.2;">
+      The <span style="color:var(--teal);">Independence</span> Requirement
+    </h2>
+
+    <!-- Blockquote -->
+    <div class="bq mb-10">
+      <blockquote class="text-lg md:text-xl font-light italic leading-relaxed relative z-10"
+                  style="color:#ddeeff;">
+        "A system cannot generate 
+        <strong style="color:#fff; font-style:normal; font-weight:600;">tamper-evident compliance records about its own behavior</strong>
+        within the same trust boundary.
+        <strong style="color:var(--gold); font-style:normal; font-weight:600;">A bank cannot sign its own audit opinion.</strong>"
+      </blockquote>
+    </div>
+
+    <!-- Four arguments -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-px mb-10">
+
+      <div class="card p-7">
+        <span class="mono text-xs block mb-2"
+              style="color:var(--teal); letter-spacing:.1em; text-transform:uppercase;">
+          01 — Liability Gap
+        </span>
+        <h4 class="mono font-bold text-white text-sm mb-3">Microsoft places the liability on you</h4>
+        <p class="text-sm leading-relaxed" style="color:var(--muted);">
+          Microsoft's shared responsibility model explicitly assigns AI governance liability to
+          the enterprise. Copilot Studio and Azure AI Foundry run governance 
+          <strong style="color:#e8f0f8;">inside the same trust boundary</strong> as the agents
+          they govern — making independent regulatory evidence structurally impossible.
+        </p>
+      </div>
+
+      <div class="card p-7">
+        <span class="mono text-xs block mb-2"
+              style="color:var(--teal); letter-spacing:.1em; text-transform:uppercase;">
+          02 — Audit Evidence Gap
+        </span>
+        <h4 class="mono font-bold text-white text-sm mb-3">A framework document is not runtime evidence</h4>
+        <p class="text-sm leading-relaxed" style="color:var(--muted);">
+          Advisory frameworks tell your regulator what you <em>planned</em> to govern.
+          Kinetic's Cryptographic Execution Ledger tells your regulator what your agents 
+          <strong style="color:#e8f0f8;">actually did</strong> — in SHA-256 hash-chained,
+          mathematically verifiable form. Any auditor can verify the record without
+          Kinetic's involvement.
+        </p>
+      </div>
+
+      <div class="card p-7">
+        <span class="mono text-xs block mb-2"
+              style="color:var(--teal); letter-spacing:.1em; text-transform:uppercase;">
+          03 — Execution Boundary
+        </span>
+        <h4 class="mono font-bold text-white text-sm mb-3">In-process governance can be overwritten</h4>
+        <p class="text-sm leading-relaxed" style="color:var(--muted);">
+          Self-evolving AI agents can modify in-process governance controls from within their
+          own execution environment. Kinetic operates at the network layer — structurally
+          outside the agent's reach. <strong style="color:#e8f0f8;">The isolation is architectural,
+          not configurable.</strong>
+        </p>
+      </div>
+
+      <div class="card p-7">
+        <span class="mono text-xs block mb-2"
+              style="color:var(--teal); letter-spacing:.1em; text-transform:uppercase;">
+          04 — Design-Time vs. Runtime
+        </span>
+        <h4 class="mono font-bold text-white text-sm mb-3">Assessment compliance ≠ execution compliance</h4>
+        <p class="text-sm leading-relaxed" style="color:var(--muted);">
+          Governance certifications confirm that an assessment methodology was followed
+          <em>at design time</em>. Kinetic confirms that governance controls
+          <strong style="color:#e8f0f8;">executed correctly at runtime</strong>, on every
+          agent call, in production. Regulators require both.
+          Most enterprises currently have only one.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- OSFI Wedge -->
+    <div class="osfi-wedge p-7 mb-4">
+      <div class="mono text-xs mb-3"
+           style="color:var(--gold); letter-spacing:.12em; text-transform:uppercase;">
+        ⚖ OSFI Guideline E-23 — Final Version, September 2025
+      </div>
+      <p class="text-sm leading-relaxed" style="color:#c0d4e8;">
+        OSFI's final Guideline E-23, <strong style="color:#fff;">effective May 1, 2027</strong>,
+        applies to all federally regulated financial institutions and all AI models —
+        <strong style="color:#fff;">regardless of whether they are built internally or sourced from a third party.</strong>
+        It requires an enterprise-wide, risk-based framework governing every stage of the
+        model lifecycle, including ongoing monitoring and review throughout production.
+        A point-in-time compliance assessment does not satisfy this requirement.
+        Kinetic is the runtime monitoring layer that makes your AI governance posture
+        continuously defensible at examination — not just at the moment of assessment.
+      </p>
+    </div>
+
+    <!-- Deadline urgency -->
+    <div class="deadline-bar p-5 flex items-start gap-4">
+      <span style="font-size:18px; padding-top:2px; flex-shrink:0;">⏱</span>
+      <p class="mono text-xs leading-relaxed" style="color:#daa0a0;">
+        <strong style="color:var(--red);">OSFI E-23 is effective May 1, 2027.</strong>
+        Every Canadian FRFI deploying AI agents in production today is operating inside
+        that compliance window. Kinetic deployments are completed in weeks, not quarters.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="max-w-6xl mx-auto px-6"><hr class="subtle" /></div>
+
+
+<!-- ══════════════════════════════════════════
+     STATS
+     ══════════════════════════════════════════ -->
+<section class="py-16 px-6">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-px">
+
+    <div class="stat-box stat-teal">
+      <div class="stat-num" style="color:var(--teal);">75%</div>
+      <p class="text-sm leading-relaxed" style="color:var(--muted);">
+        of large-enterprise leaders cite security, compliance, and auditability as their
+        most critical requirements for AI agent deployment
+      </p>
+      <p class="mono mt-3 text-xs" style="color:rgba(106,143,168,0.4); letter-spacing:.05em;">
+        KPMG ENTERPRISE AI SURVEY, 2026
+      </p>
+    </div>
+
+    <div class="stat-box stat-gold">
+      <div class="stat-num" style="color:var(--gold);">80%</div>
+      <p class="text-sm leading-relaxed" style="color:var(--muted);">
+        of unauthorized AI agent transactions through 2028 will be caused by internal
+        policy violations — not external attacks
+      </p>
+      <p class="mono mt-3 text-xs" style="color:rgba(106,143,168,0.4); letter-spacing:.05em;">
+        GARTNER MARKET GUIDE FOR GUARDIAN AGENTS, FEB 2026
+      </p>
+    </div>
+
+    <div class="stat-box stat-red">
+      <div class="stat-num" style="color:var(--red);">2027</div>
+      <p class="text-sm leading-relaxed" style="color:var(--muted);">
+        OSFI Guideline E-23 effective date — mandating ongoing runtime governance for
+        all AI models at every Canadian federally regulated financial institution
+      </p>
+      <p class="mono mt-3 text-xs" style="color:rgba(106,143,168,0.4); letter-spacing:.05em;">
+        OSFI FINAL GUIDELINE E-23, SEPTEMBER 2025
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="max-w-6xl mx-auto px-6"><hr class="subtle" /></div>
+
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+     ══════════════════════════════════════════ -->
+<section class="py-20 px-6 text-center">
+  <div class="max-w-xl mx-auto space-y-6">
+
+    <div class="sec-label justify-center">Direct Access</div>
+
+    <h2 class="mono font-bold" style="font-size:clamp(20px,3vw,28px);">
+      Ready to Govern Your AI Agents?
+    </h2>
+
+    <p class="text-base leading-relaxed" style="color:var(--muted);">
+      Connect with the Kinetic engineering team for a 30-minute regulatory briefing —
+      covering your specific OSFI, BMA, or DIFC compliance posture and a live
+      demonstration of the Cryptographic Execution Ledger.
+    </p>
+
+    <div class="space-y-4 pt-4">
+      <a href="https://calendly.com/mirza-kineticlabs/30min"
+         class="cta-btn block text-center">
+        Book a 30-Minute Regulatory Briefing ➔
+      </a>
+      <a href="mailto:mirza@kineticlabs.ai?subject=Regulatory%20Briefing%20Request"
+         class="mono block text-xs uppercase tracking-widest transition-colors"
+         style="color:var(--muted);">
+        or email mirza@kineticlabs.ai
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════ -->
+<footer class="border-t py-10 text-center" style="border-color:var(--border); background:var(--bg);">
+  <div class="mono text-xs space-y-2" style="color:rgba(106,143,168,0.45); letter-spacing:.05em;">
+    <p>© 2026 Kinetic AI Labs. All rights reserved.</p>
+    <p>Independent IV&amp;V for Enterprise AI Systems.</p>
+  </div>
+</footer>
 
 </body>
 </html>
