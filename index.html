@@ -160,6 +160,27 @@
       transform: translateY(-1px);
     }
 
+    /* ── PAPER BTN ── */
+    .paper-btn {
+      display:inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family:'JetBrains Mono',monospace;
+      font-size:11px;
+      letter-spacing:0.1em;
+      text-transform:uppercase;
+      color:#fff;
+      background: var(--bg3);
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s ease;
+    }
+    .paper-btn:hover {
+      background: #112842;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
     /* ── OSFI WEDGE ── */
     .osfi-wedge {
       background: linear-gradient(135deg,rgba(201,162,39,0.08),var(--bg3));
@@ -235,11 +256,18 @@
       <span class="w-2.5 h-2.5 rounded-full pulse" style="background:var(--teal)"></span>
       KINETIC AI LABS
     </div>
-    <a href="mailto:mirza@kineticlabs.ai?subject=Regulatory%20Briefing%20Request"
-       class="mono text-xs uppercase tracking-widest hidden md:block transition-colors"
-       style="color:var(--teal);">
-      [ Request Briefing ]
-    </a>
+    <div class="flex items-center gap-8">
+      <a href="./The_Independence_Gap.pdf" target="_blank"
+         class="mono text-xs uppercase tracking-widest hidden md:block transition-colors hover:text-white"
+         style="color:var(--muted);">
+        [ Read Working Paper ]
+      </a>
+      <a href="mailto:mirza@kineticlabs.ai?subject=Regulatory%20Briefing%20Request"
+         class="mono text-xs uppercase tracking-widest hidden md:block transition-colors"
+         style="color:var(--teal);">
+        [ Request Briefing ]
+      </a>
+    </div>
   </div>
 </nav>
 
@@ -416,7 +444,7 @@
     </h2>
 
     <!-- Blockquote -->
-    <div class="bq mb-10">
+    <div class="bq mb-8">
       <blockquote class="text-lg md:text-xl font-light italic leading-relaxed relative z-10"
                   style="color:#ddeeff;">
         "A system cannot generate 
@@ -424,6 +452,16 @@
         within the same trust boundary.
         <strong style="color:var(--gold); font-style:normal; font-weight:600;">A bank cannot sign its own audit opinion.</strong>"
       </blockquote>
+    </div>
+
+    <!-- Working Paper Download Button -->
+    <div class="mb-12">
+      <a href="./The_Independence_Gap.pdf" target="_blank" class="paper-btn">
+        <svg class="w-4 h-4" style="color:var(--gold)" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        Download Working Paper: The Independence Gap (PDF)
+      </a>
     </div>
 
     <!-- Four arguments -->
