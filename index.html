@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kinetic AI | Independent Governance for AI Agents</title>
-<meta name="description" content="Kinetic evaluates every AI agent action before it executes, enforces your policy in real time, and produces an immutable, deterministically-reproducible audit trail that stands up to OSFI, BMA, and SOC 2 review - from outside the system it governs.">
+<title>Kinetic AI | Prove your AI agent was governed — a 30-day pilot</title>
+<meta name="description" content="A design-partner reference architecture for independent AI-agent governance. Kinetic evaluates every agent action before it runs, seals it into an append-only cryptographic ledger, and hands you a portable certificate your auditor can verify offline — without trusting us.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -23,182 +23,101 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
   .mono { font-family: 'JetBrains Mono', monospace; }
   .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-  /* ── Nav ── */
-  nav {
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(3,11,21,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
+  code { font-family: 'JetBrains Mono', monospace; background: var(--teal-dim); color: var(--teal); padding: 1px 6px; border-radius: 4px; font-size: 0.9em; }
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 50; background: rgba(3,11,21,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
   .logo { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
   .logo span { color: var(--teal); }
   .nav-links { display: flex; gap: 28px; align-items: center; }
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
-  .nav-cta {
-    background: var(--teal); color: var(--bg) !important;
-    padding: 8px 18px; border-radius: 6px; font-weight: 600;
-  }
+  .nav-cta { background: var(--teal); color: var(--bg) !important; padding: 8px 18px; border-radius: 6px; font-weight: 600; }
   @media (max-width: 720px) { .nav-links a:not(.nav-cta) { display: none; } }
-  /* ── Hero ── */
-  .hero {
-    padding: 120px 0 100px;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,194,203,0.08) 0%, transparent 70%);
-    text-align: center;
-  }
-  .eyebrow {
-    display: inline-block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; letter-spacing: 0.15em;
-    color: var(--teal); text-transform: uppercase;
-    border: 1px solid var(--border); border-radius: 20px;
-    padding: 6px 16px; margin-bottom: 28px;
-  }
-  h1 {
-    font-size: clamp(32px, 5.5vw, 56px);
-    font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
-    max-width: 900px; margin: 0 auto 24px;
-  }
+  /* Hero */
+  .hero { padding: 110px 0 80px; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,194,203,0.08) 0%, transparent 70%); text-align: center; }
+  .eyebrow { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.15em; color: var(--teal); text-transform: uppercase; border: 1px solid var(--border); border-radius: 20px; padding: 6px 16px; margin-bottom: 28px; }
+  h1 { font-size: clamp(30px, 5vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; max-width: 900px; margin: 0 auto 24px; }
   h1 .accent { color: var(--teal); }
-  .subhead {
-    font-size: clamp(16px, 2vw, 20px);
-    color: var(--muted); max-width: 720px; margin: 0 auto 40px;
-    line-height: 1.6;
-  }
+  .subhead { font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 730px; margin: 0 auto 22px; line-height: 1.6; }
   .subhead strong { color: var(--text); font-weight: 600; }
+  .statuspills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 0 auto 36px; max-width: 760px; }
+  .spill { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; }
+  .spill b { color: var(--teal); font-weight: 600; }
   .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--teal); color: var(--bg);
-    padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px;
-    text-decoration: none; transition: transform 0.15s, box-shadow 0.2s;
-    box-shadow: 0 0 0 rgba(0,194,203,0);
-  }
+  .btn-primary { background: var(--teal); color: var(--bg); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 0.15s, box-shadow 0.2s; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,194,203,0.25); }
-  .btn-ghost {
-    background: transparent; color: var(--text);
-    padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 15px;
-    text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s;
-  }
+  .btn-ghost { background: transparent; color: var(--text); padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s; }
   .btn-ghost:hover { border-color: var(--teal); }
-  /* ── Who it's for strip ── */
-  .who-strip {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
-    padding: 22px 0;
-    text-align: center;
-  }
+  /* Who strip */
+  .who-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg2); padding: 22px 0; text-align: center; }
   .who-strip .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
   .who-strip .who { font-size: 16px; color: var(--text); font-weight: 500; }
   .who-strip .who b { color: var(--teal); font-weight: 600; }
-  /* ── Section base ── */
-  section { padding: 90px 0; }
+  /* Sections */
+  section { padding: 84px 0; }
   .section-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.15em; color: var(--teal); text-transform: uppercase; margin-bottom: 14px; text-align: center; }
-  h2 { font-size: clamp(26px, 3.5vw, 38px); font-weight: 700; letter-spacing: -0.02em; text-align: center; margin-bottom: 16px; line-height: 1.2; }
-  .section-sub { color: var(--muted); text-align: center; max-width: 640px; margin: 0 auto 56px; font-size: 17px; }
-  /* ── Pillars ── */
+  h2 { font-size: clamp(25px, 3.4vw, 36px); font-weight: 700; letter-spacing: -0.02em; text-align: center; margin-bottom: 16px; line-height: 1.2; }
+  .section-sub { color: var(--muted); text-align: center; max-width: 660px; margin: 0 auto 52px; font-size: 17px; }
+  /* Pillars */
   .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   @media (max-width: 820px) { .pillars { grid-template-columns: 1fr; } }
-  .pillar {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 32px 28px;
-    transition: transform 0.2s, border-color 0.2s;
-  }
+  .pillar { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 30px 26px; transition: transform 0.2s, border-color 0.2s; }
   .pillar:hover { transform: translateY(-4px); border-color: var(--teal); }
-  .pillar-icon {
-    width: 44px; height: 44px; border-radius: 10px;
-    background: var(--teal-dim); display: flex; align-items: center; justify-content: center;
-    margin-bottom: 20px;
-  }
-  .pillar-icon svg { width: 22px; height: 22px; stroke: var(--teal); }
+  .pnum { font-family: 'JetBrains Mono', monospace; color: var(--teal); font-size: 13px; letter-spacing: 0.1em; margin-bottom: 14px; }
   .pillar h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
   .pillar p { color: var(--muted); font-size: 15px; line-height: 1.6; }
   .pillar p strong { color: var(--text); font-weight: 600; }
-  /* ── Pill Tag ── */
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--teal);
-    background: var(--teal-dim);
-    border: 1px solid var(--border);
-    padding: 4px 12px;
-    border-radius: 12px;
-  }
-  .pill-dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--teal);
-  }
-  /* ── Independence ── */
+  .pillar .limit { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 10px; }
+  /* Independence */
   .independence { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .indep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .indep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
   @media (max-width: 820px) { .indep-grid { grid-template-columns: 1fr; gap: 32px; } }
   .indep-text h2 { text-align: left; margin-bottom: 20px; }
   .indep-text p { color: var(--muted); font-size: 17px; margin-bottom: 18px; }
-  .indep-text .pull {
-    color: var(--text); font-size: 20px; font-weight: 600; line-height: 1.4;
-    border-left: 3px solid var(--teal); padding-left: 20px; margin: 24px 0;
-  }
-  .indep-visual {
-    background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
-    padding: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;
-  }
+  .indep-text .pull { color: var(--text); font-size: 20px; font-weight: 600; line-height: 1.4; border-left: 3px solid var(--teal); padding-left: 20px; margin: 24px 0; }
+  .indep-visual { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
   .indep-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
   .indep-row:last-child { border-bottom: none; }
   .indep-row .x { color: var(--red); font-weight: 700; }
   .indep-row .check { color: var(--teal); font-weight: 700; }
   .indep-row .name { color: var(--text); }
   .indep-row .verdict { margin-left: auto; color: var(--muted); font-size: 12px; }
-  /* ── Dual Use (New) ── */
-  .dual-use-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  @media (max-width: 820px) { .dual-use-grid { grid-template-columns: 1fr; } }
-  .card-top { border-top: 2px solid var(--teal); }
-  .card-top-red { border-top: 2px solid var(--red); }
-
-  /* ── How it works ── */
-  .flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  @media (max-width: 820px) { .flow { grid-template-columns: 1fr; } }
-  .flow-card { text-align: center; padding: 28px 20px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg2); }
-  .flow-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 13px; padding: 6px 16px; border-radius: 20px; margin-bottom: 16px; }
-  .flow-badge.allow { background: rgba(0,194,203,0.12); color: var(--teal); }
-  .flow-badge.warn { background: rgba(201,162,39,0.14); color: var(--gold); }
-  .flow-badge.block { background: rgba(224,82,82,0.14); color: var(--red); }
-  .flow-card p { color: var(--muted); font-size: 14px; }
-  /* ── Determinism proof band ── */
-  .proofband { margin-top: 34px; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 26px 30px; text-align: center; }
-  .proofband .plabel { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
-  .proofband p { color: var(--muted); max-width: 760px; margin: 0 auto; font-size: 15px; }
-  .proofband strong { color: var(--text); font-weight: 600; }
-  /* ── Compliance badges ── */
+  /* Pilot offer */
+  .pilot { background: var(--bg); }
+  .offer-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 34px 32px; margin-bottom: 24px; }
+  .offer-card.accent { border-top: 2px solid var(--teal); }
+  .offer-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+  .offer-card ul { list-style: none; }
+  .offer-card li { color: var(--muted); font-size: 15px; padding: 8px 0 8px 26px; position: relative; }
+  .offer-card li::before { content: "→"; position: absolute; left: 0; color: var(--teal); }
+  .offer-card li b { color: var(--text); font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  td { color: var(--muted); }
+  td b { color: var(--text); }
+  .free-tag { display: inline-block; background: rgba(0,194,203,0.12); color: var(--teal); font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 13px; padding: 6px 16px; border-radius: 20px; margin-bottom: 8px; }
+  /* Not-list */
+  .notgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
+  @media (max-width: 720px) { .notgrid { grid-template-columns: 1fr; } }
+  .notrow { color: var(--muted); font-size: 15px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .notrow b { color: var(--text); font-weight: 600; }
+  /* Compliance */
   .compliance { text-align: center; }
-  .badge-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
-  .comp-badge {
-    font-family: 'JetBrains Mono', monospace; font-size: 13px;
-    padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px;
-    color: var(--text); background: var(--bg2);
-  }
+  .badge-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+  .comp-badge { font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px; color: var(--text); background: var(--bg2); }
   .comp-badge b { color: var(--teal); }
-  /* ── CTA ── */
+  .comp-note { color: var(--muted); font-size: 14px; margin-top: 26px; max-width: 640px; margin-left: auto; margin-right: auto; }
+  /* CTA */
   .cta-final { text-align: center; background: radial-gradient(ellipse 70% 100% at 50% 100%, rgba(0,194,203,0.08) 0%, transparent 70%); }
   .cta-final h2 { margin-bottom: 20px; }
-  .cta-final p { color: var(--muted); margin-bottom: 36px; font-size: 18px; }
-  /* ── Footer ── */
-  footer { border-top: 1px solid var(--border); padding: 40px 0; }
+  .cta-final p { color: var(--muted); margin-bottom: 32px; font-size: 18px; }
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 36px 0; }
   .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
   .footer-inner .logo { font-size: 16px; }
   .footer-meta { color: var(--muted); font-size: 13px; font-family: 'JetBrains Mono', monospace; }
@@ -209,172 +128,189 @@
   <div class="wrap nav-inner">
     <div class="logo">KINETIC<span>AI</span></div>
     <div class="nav-links">
-      <a href="#platform">Platform</a>
+      <a href="#proof">The Proof</a>
       <a href="#independence">Why Independent</a>
-      <a href="#dual-use">Defense</a>
+      <a href="#pilot">The Pilot</a>
       <a href="./The_Independence_Gap.pdf" target="_blank" rel="noopener">The Paper</a>
-      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Demo%20Request" class="nav-cta">Request a Demo</a>
+      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="nav-cta">Start a Pilot</a>
     </div>
   </div>
 </nav>
-<!-- ── Hero ── -->
+
+<!-- Hero -->
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">Guardian Agent Platform</span>
-    <h1>Independent governance for AI agents.<br><span class="accent">Proof your regulator will accept.</span></h1>
-    <p class="subhead">Sovereign, network-isolated AI governance for <strong>Defense (DoD, DND)</strong> and <strong>Regulated Enterprise (OSFI, BMA)</strong>. We provide the independent oversight your AI agents need and your regulators require.</p>
+    <span class="eyebrow">Guardian Agent Platform · Design-partner pilot</span>
+    <h1>Prove your AI agent was governed — <span class="accent">with a certificate your auditor can verify without trusting you or us.</span></h1>
+    <p class="subhead">Kinetic evaluates every agent action <strong>before</strong> it runs, seals the decision into an append-only cryptographic ledger, and produces a portable certificate anyone can verify offline. It runs <strong>outside</strong> the system it governs — the one thing a self-governing platform structurally cannot offer.</p>
+    <div class="statuspills">
+      <span class="spill">Pilot-stage</span>
+      <span class="spill">Reference architecture</span>
+      <span class="spill">Canadian-controlled</span>
+      <span class="spill">Out-of-process &amp; verifiable</span>
+      <span class="spill"><b>NATO NCAGE L13Z9</b> (eligibility, not accreditation)</span>
+    </div>
     <div class="hero-ctas">
-      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Demo%20Request" class="btn-primary">Request a Demo</a>
-      <a href="#independence" class="btn-ghost">Why independence matters</a>
+      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="btn-primary">Start a 30-day pilot</a>
+      <a href="#proof" class="btn-ghost">See the proof</a>
     </div>
   </div>
 </header>
-<!-- ── Who it's for ── -->
+
+<!-- Who -->
 <div class="who-strip">
   <div class="wrap">
-    <div class="label">Built for</div>
-    <div class="who"><b>Chief Risk Officers</b>, <b>Chief Compliance Officers</b>, and <b>Defense Primes</b></div>
+    <div class="label">Built for design partners</div>
+    <div class="who"><b>Chief Risk &amp; Compliance Officers</b> · <b>CISOs</b> at regulated firms · teams running <b>LangGraph, AutoGen, CrewAI, or Copilot Studio</b> agents with no cryptographic execution record</div>
   </div>
 </div>
-<!-- ── Platform / Pillars ── -->
-<section id="platform">
+
+<!-- The Proof -->
+<section id="proof">
   <div class="wrap">
-    <div class="section-eyebrow">The Platform</div>
-    <h2>Three layers of control. One system of record.</h2>
-    <p class="section-sub">Every AI agent action passes through Kinetic before it happens. Nothing executes unwitnessed. Nothing is logged after the fact.</p>
+    <div class="section-eyebrow">The Proof</div>
+    <h2>Three cryptographic layers. Each with its honest boundary.</h2>
+    <p class="section-sub">Every agent action passes through Kinetic before it happens. Nothing executes unwitnessed, and nothing is logged after the fact. Here is exactly what each layer proves — and what it does not.</p>
     <div class="pillars">
       <div class="pillar">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10"/><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/></svg>
-        </div>
-        <h3>Real-Time Enforcement</h3>
-        <p>Kinetic intercepts every agent action, scores the risk, and enforces your policy before the action executes. Not a report you read after the damage. A decision made in the moment, in milliseconds.</p>
+        <div class="pnum">LAYER 1 · INTEGRITY</div>
+        <h3>SHA-256 hash chain</h3>
+        <p>Each ledger entry is chained to the last. Any alteration, deletion, or insertion breaks the chain and every hash after it. Verified by <code>verify_chain.py</code> — pure Python, run without contacting us.</p>
+        <span class="limit">Detective, not preventive: a database superuser can disable the trigger; tampering is <em>caught</em> out-of-band, not blocked at the DB.</span>
       </div>
       <div class="pillar">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <h3>Cryptographic Execution Ledger</h3>
-        <p>Every decision is sealed into an <strong>immutable, database-enforced ledger &mdash; append-only, it cannot be rewritten, even by us</strong>. Any auditor can independently verify what your AI agents did, when, and why mathematically, and <strong>replay any decision to reproduce the identical outcome and hash</strong>, without trusting your word or ours.</p>
+        <div class="pnum">LAYER 2 · BINDING</div>
+        <h3>Payload fingerprint + replay</h3>
+        <p>A SHA-256 fingerprint of the agent's submitted context is bound into the record. <strong>Deterministic replay</strong> re-derives the decision and hash from the stored inputs — <code>VERIFIED</code> if they match, <code>DIVERGED</code> if not.</p>
+        <span class="limit">Proves the integrity of the agent's <em>input</em> — not the authority or truth of the source system it read.</span>
       </div>
       <div class="pillar">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Sovereign & Tactical Edge</h3>
-        <p>Engineered for Joint All-Domain Command and Control (JADC2) and highly regulated financials. Deployable in sovereign cloud enclaves or SWaP-optimized for the tactical edge. <strong>Zero data extraction to public clouds.</strong></p>
+        <div class="pnum">LAYER 3 · ATTESTATION</div>
+        <h3>Ed25519 signature</h3>
+        <p>Each record's hash is signed with an Ed25519 key and verified against a published public key. This is <strong>authority-attested integrity</strong> — a portable governance certificate an auditor verifies offline.</p>
+        <span class="limit">In-memory key today, not hardware-rooted non-repudiation. HSM-held signing (Azure Managed HSM) is planned, not built.</span>
       </div>
+    </div>
+    <div class="offer-card accent" style="margin-top:34px;">
+      <h3>What you can verify yourself — no server, no trust assumption</h3>
+      <ul>
+        <li><b>Run the verifier:</b> <code>python verify_chain.py --verify-signatures --kinetic-pubkey-file kinetic_pubkey.pem</code> — pure Python + <code>hashlib</code>, no dependency on Kinetic.</li>
+        <li><b>Prove immutability:</b> attempt an <code>UPDATE</code> on the ledger in the sovereign demo — Postgres refuses it: <code>ERROR: append-only ledger table</code>.</li>
+        <li><b>Replay a decision:</b> the deterministic replay re-derives the exact outcome and hash from stored inputs.</li>
+      </ul>
     </div>
   </div>
 </section>
-<!-- ── Why Independent ── -->
+
+<!-- Why Independent -->
 <section id="independence" class="independence">
   <div class="wrap">
     <div class="indep-grid">
       <div class="indep-text">
         <div class="section-eyebrow" style="text-align:left">The Independence Requirement</div>
         <h2>A system cannot audit its own behavior.</h2>
-        <p>The platforms building AI agents are now also selling the tools to govern them. That is the same entity grading its own homework.</p>
+        <p>The platforms building AI agents are now also selling the tools to govern them — the same entity grading its own homework, inside its own trust boundary.</p>
         <div class="pull">A bank cannot sign its own audit opinion. Neither can an AI platform certify its own agents.</div>
-        <p>Kinetic runs outside the system it governs in a separate process, separate credentials, separate trust boundary. That architectural separation is what satisfies an auditor and a regulator. It is the one thing a self-governing platform structurally cannot provide.</p>
+        <p>Kinetic runs <strong>outside</strong> the system it governs: separate process, separate credentials, separate trust boundary. That architectural separation is what an auditor and a regulator are actually looking for.</p>
+        <p style="font-size:15px;">And we hold ourselves to the same standard: independent attestation of Kinetic's own controls (third-party security review, then SOC 2 Type I) is <strong>planned</strong> — because you should not have to take the word of the people who built the audit layer either.</p>
         <a href="./The_Independence_Gap.pdf" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-block;margin-top:8px;">Read the paper: The Independence Gap</a>
       </div>
       <div class="indep-visual">
         <div class="indep-row"><span class="x">✕</span><span class="name">Platform governs its own agents</span><span class="verdict">self-certified</span></div>
         <div class="indep-row"><span class="x">✕</span><span class="name">In-process governance layer</span><span class="verdict">same trust boundary</span></div>
         <div class="indep-row"><span class="x">✕</span><span class="name">Audit log written after execution</span><span class="verdict">no prevention</span></div>
-        <div class="indep-row"><span class="check">✓</span><span class="name">Kinetic append-only, DB-enforced</span><span class="verdict">cannot be altered, even by us</span></div>
-        <div class="indep-row"><span class="check">✓</span><span class="name">Kinetic independent, pre-execution</span><span class="verdict">regulator-ready</span></div>
+        <div class="indep-row"><span class="check">✓</span><span class="name">Kinetic append-only, DB-enforced</span><span class="verdict">tampering detectable</span></div>
+        <div class="indep-row"><span class="check">✓</span><span class="name">Kinetic independent, pre-execution</span><span class="verdict">auditor-verifiable</span></div>
       </div>
     </div>
   </div>
 </section>
-<!-- ── Dual-Use Architecture ── -->
-<section id="dual-use" style="background: var(--bg); border-bottom: 1px solid var(--border);">
-  <div class="wrap">
-    <div class="section-eyebrow">Dual-Use Infrastructure</div>
-    <h2>Built for the Bank. <span style="color:var(--red);">Hardened for the Battlefield.</span></h2>
-    <p class="section-sub">Kinetic is engineered as a Dual-Use technology. The out-of-process cryptographic non-repudiation required to secure Agentic AI is structurally identical across high-assurance sectors.</p>
 
-    <div class="dual-use-grid">
-      <div class="pillar card-top">
-        <h3 class="mono">Enterprise Financials</h3>
-        <p>
-          Kinetic provides the runtime monitoring and independent evidence layer required by global financial supervisors. Purpose-built to satisfy the rigorous model risk management requirements of OSFI Guideline E-23, the BMA, and the EU AI Act.
-        </p>
-      </div>
-      <div class="pillar card-top-red">
-        <h3 class="mono">Defense & Sovereign Security</h3>
-        <p style="margin-bottom:16px;">
-          Kinetic acts as the automated compliance gatekeeper and immutable provenance audit trail required for military sensor fusion. We ensure AI nodes cannot execute unauthorized cross-domain data merges.
-        </p>
-        <span class="pill" style="color:var(--red); background:rgba(224,82,82,0.1); border-color:rgba(224,82,82,0.3);">
-          <span class="pill-dot" style="background:var(--red);"></span>
-          NATO NCAGE: L13Z9
-        </span>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ── How it works ── -->
-<section id="how">
+<!-- The Pilot -->
+<section id="pilot" class="pilot">
   <div class="wrap">
-    <div class="section-eyebrow">How It Works</div>
-    <h2>Three decisions. Zero guesswork.</h2>
-    <p class="section-sub">You write the policy. Kinetic enforces it mathematically on every action, no AI, no judgment calls, no hallucination in the governance layer itself.</p>
-    <div class="flow">
-      <div class="flow-card">
-        <span class="flow-badge allow">ALLOWED</span>
-        <p>Low-risk action within policy. Proceeds instantly, under 10 milliseconds. Your agents never feel the governance layer.</p>
-      </div>
-      <div class="flow-card">
-        <span class="flow-badge warn">FLAGGED</span>
-        <p>Elevated risk. The action proceeds but compliance is alerted and the agent's trust score adjusts. Full visibility, no interruption.</p>
-      </div>
-      <div class="flow-card">
-        <span class="flow-badge block">BLOCKED</span>
-        <p>Action crosses your defined threshold. Stopped before execution, with a plain-language rationale sealed into the ledger.</p>
-      </div>
+    <div class="section-eyebrow">The Offer</div>
+    <h2>The 30-Day Governance Certificate Pilot</h2>
+    <p class="section-sub">Not a sale — a proof. No procurement, no license, no security-clearance gate. You bring one agent workflow (or a synthetic test case); we produce evidence you can hand to an auditor.</p>
+
+    <div style="text-align:center;margin-bottom:28px;"><span class="free-tag">FREE · design partners only</span></div>
+
+    <div class="offer-card accent">
+      <h3>What we deliver</h3>
+      <ul>
+        <li><b>3 governance certificates</b> — each a machine-readable artifact: the ledger record, its Ed25519 signature, and a deterministic replay result.</li>
+        <li><b>An independent verification session</b> — your team (or your auditor) runs <code>verify_chain.py</code> and the standalone verifier locally. No dependency on our infrastructure.</li>
+        <li><b>A replay report</b> — <code>VERIFIED</code> / <code>DIVERGED</code> for each action, with a <code>policy_hash</code> fingerprint tying each result to the exact policy version that governed it.</li>
+        <li><b>A one-page limitations memo</b> — precisely what this does <em>not</em> cover (source-system truth, multi-replica rate limiting, HSM-rooted signing). We include it because independence requires stating the boundary.</li>
+      </ul>
     </div>
-    <div class="proofband">
-      <div class="plabel">Deterministic &amp; Reproducible</div>
-      <p>Every decision is <strong>deterministically reproducible</strong>. Replay any past record and Kinetic re-derives the <strong>identical outcome and cryptographic hash</strong> from the stored inputs &mdash; same inputs, same result, provably. Verifiable in a single API call by any independent reviewer.</p>
+
+    <div class="offer-card">
+      <h3>What you provide — pick one phase</h3>
+      <table>
+        <thead><tr><th>Phase</th><th>Integration</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td><b>1 · Zero</b></td><td>A manual <code>POST</code> (curl / Postman) to <code>/api/v1/evaluate</code> with a sample agent payload.</td><td>~30 min</td></tr>
+          <tr><td><b>2 · Light</b></td><td>The <code>@governed_tool()</code> decorator on one Python function in your existing agent.</td><td>2–4 hrs</td></tr>
+          <tr><td><b>3 · Full</b></td><td>MCP proxy / connector integration. <b>Not required</b> for the pilot — reserved for a funded follow-on.</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <p style="color:var(--muted);font-size:14px;margin-top:16px;">You can also run the <b>sovereign demo bundle</b> (<code>docker-compose</code>) entirely inside your own boundary — zero cloud account, zero external network — and prove immutability yourself before engaging our hosted engine.</p>
     </div>
   </div>
 </section>
-<!-- ── Compliance ── -->
+
+<!-- What it is NOT -->
+<section id="boundary" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-eyebrow">Read Before You Evaluate</div>
+    <h2>What Kinetic is <span style="color:var(--gold)">not</span> — yet</h2>
+    <p class="section-sub">We list these on purpose. Knowing the boundary is what makes the proof credible.</p>
+    <div class="notgrid">
+      <div class="notrow"><b>Not a source-truth validator.</b> We bind the agent's payload; we do not independently reconcile it against the raw AWS/GitHub/IAM source. That module is a design concept, not built.</div>
+      <div class="notrow"><b>Not an independently-attested product.</b> No SOC 2 attestation exists yet; SOC 2 Type I is planned, not started. Framework mappings are references, not audits.</div>
+      <div class="notrow"><b>Not hardware-rooted non-repudiation.</b> Signing is in-memory Ed25519 today (authority-attested integrity). Managed HSM is planned.</div>
+      <div class="notrow"><b>Not tactical-edge hardware.</b> Air-gapped, sovereign-deployable (a container inside your boundary) is real. Ruggedized battlefield hardware is a future profile, not the current product.</div>
+      <div class="notrow"><b>Not a cross-classification, cross-tenant view.</b> The design is federated enclaves — one isolated tenant per domain, aggregated metadata only.</div>
+      <div class="notrow"><b>Not kernel-layer enforcement.</b> The interceptor governs at the API layer. Syscall/kernel enforcement is a future tier.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Compliance -->
 <section id="compliance" class="compliance">
   <div class="wrap">
-    <div class="section-eyebrow">Compliance Mapping</div>
-    <h2>Evidence that maps to the frameworks you answer to.</h2>
-    <p class="section-sub">The ledger produces auditor-ready reports aligned to the regulations governing AI in financial services and defense.</p>
+    <div class="section-eyebrow">Framework Mapping</div>
+    <h2>Mapped to the regimes you answer to.</h2>
+    <p class="section-sub">The ledger and replay produce evidence structured against the frameworks governing AI in regulated finance and government.</p>
     <div class="badge-row">
       <div class="comp-badge"><b>OSFI</b> E-23</div>
       <div class="comp-badge"><b>BMA</b> AI Governance</div>
-      <div class="comp-badge"><b>SOC 2</b> Type II</div>
-      <div class="comp-badge"><b>DND</b> JADC2</div>
-      <div class="comp-badge"><b>CMMC</b> Level 1</div>
-      <div class="comp-badge"><b>NIST</b> AI RMF</div>
-      <div class="comp-badge">Ontario <b>Bill 194</b></div>
       <div class="comp-badge"><b>EU</b> AI Act</div>
+      <div class="comp-badge"><b>NIST</b> AI RMF</div>
+      <div class="comp-badge"><b>ISO/IEC</b> 42001</div>
+      <div class="comp-badge">Ontario <b>Bill 194</b></div>
     </div>
+    <p class="comp-note"><b>Framework mapping only — not an attestation.</b> Kinetic has no completed independent audit yet; SOC 2 Type I is planned. Each mapping is an evidence structure with a documented gap register, not a certification.</p>
   </div>
 </section>
-<!-- ── Final CTA ── -->
+
+<!-- Final CTA -->
 <section id="contact" class="cta-final">
   <div class="wrap">
-    <div class="section-eyebrow">Get Started</div>
-    <h2>See Kinetic govern a live agent.</h2>
-    <p>A 30-minute walkthrough for risk, compliance, and defense leaders.</p>
+    <div class="section-eyebrow">Start</div>
+    <h2>Get a certificate your auditor can verify.</h2>
+    <p>A 30-minute walkthrough, then the pilot. For risk, compliance, and security leaders.</p>
     <div class="hero-ctas">
-      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Demo%20Request" class="btn-primary">Request a Demo</a>
+      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="btn-primary">Start a 30-day pilot</a>
     </div>
   </div>
 </section>
+
 <footer>
   <div class="wrap footer-inner">
     <div class="logo">KINETIC<span>AI</span></div>
-    <div class="footer-meta">Independent AI Governance | Markham, Ontario | mirza@kineticlabs.ai | NATO NCAGE: L13Z9</div>
+    <div class="footer-meta">Independent AI Governance · Reference architecture, pilot-stage · Markham, Ontario · mirza@kineticlabs.ai · NATO NCAGE L13Z9</div>
   </div>
 </footer>
 </body>
