@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kinetic AI | Prove your AI agent was governed — a 30-day pilot</title>
-<meta name="description" content="A design-partner reference architecture for independent AI-agent governance. Kinetic evaluates every agent action before it runs, seals it into an append-only cryptographic ledger, and hands you a portable certificate your auditor can verify offline — without trusting us.">
+<title>Kinetic AI | Independent proof your AI agents were governed</title>
+<meta name="description" content="Kinetic is the independent check on your AI agents. When a regulator or your board asks for proof that an agent's action was authorized, Kinetic produces evidence your auditor can verify offline, without trusting your AI platform or us.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -72,6 +72,8 @@
   .pillar p { color: var(--muted); font-size: 15px; line-height: 1.6; }
   .pillar p strong { color: var(--text); font-weight: 600; }
   .pillar .limit { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 10px; }
+  /* Outcome band */
+  .outcome { background: var(--bg); }
   /* Independence */
   .independence { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .indep-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
@@ -93,7 +95,7 @@
   .offer-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
   .offer-card ul { list-style: none; }
   .offer-card li { color: var(--muted); font-size: 15px; padding: 8px 0 8px 26px; position: relative; }
-  .offer-card li::before { content: "→"; position: absolute; left: 0; color: var(--teal); }
+  .offer-card li::before { content: "\2192"; position: absolute; left: 0; color: var(--teal); }
   .offer-card li b { color: var(--text); font-weight: 600; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -128,31 +130,32 @@
   <div class="wrap nav-inner">
     <div class="logo">KINETIC<span>AI</span></div>
     <div class="nav-links">
-      <a href="#proof">The Proof</a>
       <a href="#independence">Why Independent</a>
+      <a href="#outcome">What You Get</a>
+      <a href="#proof">The Proof</a>
       <a href="#pilot">The Pilot</a>
-      <a href="./The_Independence_Gap.pdf" target="_blank" rel="noopener">The Paper</a>
+      <a href="https://kineticlabs.ai/The_Independence_Gap.pdf" target="_blank" rel="noopener">The Paper</a>
       <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="nav-cta">Start a Pilot</a>
     </div>
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- Hero: outcome-led -->
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">Guardian Agent Platform · Design-partner pilot</span>
-    <h1>Prove your AI agent was governed — <span class="accent">with a certificate your auditor can verify without trusting you or us.</span></h1>
-    <p class="subhead">Kinetic evaluates every agent action <strong>before</strong> it runs, seals the decision into an append-only cryptographic ledger, and produces a portable certificate anyone can verify offline. It runs <strong>outside</strong> the system it governs — the one thing a self-governing platform structurally cannot offer.</p>
+    <span class="eyebrow">Guardian Agent Platform · For risk &amp; compliance leaders</span>
+    <h1>Prove your AI agents were governed. <span class="accent">Independently, without trusting the vendor.</span></h1>
+    <p class="subhead">Your AI agents are executing regulated work right now. When a regulator or your board asks for proof that an action was authorized, your AI platform cannot vouch for itself. <strong>Kinetic is the independent check</strong>: it produces evidence your own auditor can verify, without taking your word, your platform's word, or ours.</p>
     <div class="statuspills">
       <span class="spill">Pilot-stage</span>
       <span class="spill">Reference architecture</span>
       <span class="spill">Canadian-controlled</span>
-      <span class="spill">Out-of-process &amp; verifiable</span>
+      <span class="spill">Independent &amp; auditor-verifiable</span>
       <span class="spill"><b>NATO NCAGE L13Z9</b> (eligibility, not accreditation)</span>
     </div>
     <div class="hero-ctas">
       <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="btn-primary">Start a 30-day pilot</a>
-      <a href="#proof" class="btn-ghost">See the proof</a>
+      <a href="#independence" class="btn-ghost">See how it works</a>
     </div>
   </div>
 </header>
@@ -161,67 +164,106 @@
 <div class="who-strip">
   <div class="wrap">
     <div class="label">Built for design partners</div>
-    <div class="who"><b>Chief Risk &amp; Compliance Officers</b> · <b>CISOs</b> at regulated firms · teams running <b>LangGraph, AutoGen, CrewAI, or Copilot Studio</b> agents with no cryptographic execution record</div>
+    <div class="who"><b>Chief Risk &amp; Compliance Officers</b> at regulated firms, the <b>CISOs and Big 4 risk partners</b> who support them, and teams running <b>LangGraph, AutoGen, CrewAI, or Copilot Studio</b> agents with no independent execution record.</div>
   </div>
 </div>
 
-<!-- The Proof -->
-<section id="proof">
+<!-- Why Independent: the argument, pulled to the top -->
+<section id="independence" class="independence">
   <div class="wrap">
-    <div class="section-eyebrow">The Proof</div>
+    <div class="indep-grid">
+      <div class="indep-text">
+        <div class="section-eyebrow" style="text-align:left">The Independence Problem</div>
+        <h2>A system cannot audit its own behavior.</h2>
+        <p>The platforms building your AI agents are now also selling the tools to govern them: the same entity grading its own homework, inside its own trust boundary. When your regulator asks for proof, a log the platform wrote about itself is not independent evidence.</p>
+        <div class="pull">A bank cannot sign its own audit opinion. A Copilot agent cannot generate proof that its own execution was properly governed.</div>
+        <p>Kinetic runs <strong>outside</strong> the system it governs: separate process, separate credentials, separate trust boundary. That separation is exactly what an auditor and a regulator are looking for, and it is the one thing a self-governing platform structurally cannot offer.</p>
+        <p style="font-size:15px;">We hold ourselves to the same standard. Independent attestation of Kinetic's own controls (third-party security review, then SOC 2 Type I) is <strong>planned</strong>. You should not have to take the word of the people who built the audit layer either.</p>
+        <a href="https://kineticlabs.ai/The_Independence_Gap.pdf" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-block;margin-top:8px;">Read the paper: The Independence Gap</a>
+      </div>
+      <div class="indep-visual">
+        <div class="indep-row"><span class="x">&#10007;</span><span class="name">Platform governs its own agents</span><span class="verdict">self-certified</span></div>
+        <div class="indep-row"><span class="x">&#10007;</span><span class="name">In-process governance layer</span><span class="verdict">same trust boundary</span></div>
+        <div class="indep-row"><span class="x">&#10007;</span><span class="name">Audit log written after execution</span><span class="verdict">no prevention</span></div>
+        <div class="indep-row"><span class="check">&#10003;</span><span class="name">Kinetic checks before execution</span><span class="verdict">action can be stopped</span></div>
+        <div class="indep-row"><span class="check">&#10003;</span><span class="name">Kinetic independent, verifiable</span><span class="verdict">auditor confirms offline</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What you get: outcomes, not architecture -->
+<section id="outcome" class="outcome">
+  <div class="wrap">
+    <div class="section-eyebrow">What You Can Put In Front Of A Regulator</div>
+    <h2>Three things your AI platform can't give you.</h2>
+    <p class="section-sub">Kinetic turns every agent action into evidence a third party will accept. In plain terms, here is what that buys you.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pnum">01 · INDEPENDENT</div>
+        <h3>Evidence that counts as third-party</h3>
+        <p>The record is produced <strong>outside</strong> the agent and the platform, so it stands as independent proof, not a self-issued log. It is the difference between a bank's own spreadsheet and an external auditor's opinion.</p>
+      </div>
+      <div class="pillar">
+        <div class="pnum">02 · PRE-EXECUTION</div>
+        <h3>Risky actions stopped before they happen</h3>
+        <p>Every action is checked <strong>before</strong> it runs and can be blocked, not just logged after the damage. A blocked action has a blast radius of zero. Nothing executes unwitnessed.</p>
+      </div>
+      <div class="pillar">
+        <div class="pnum">03 · VERIFIABLE</div>
+        <h3>Your auditor confirms it, offline, without us</h3>
+        <p>You get a portable certificate your own team or auditor can <strong>verify independently</strong>, with no call to Kinetic and no access to our systems. Trust the math, not the vendor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Proof: for auditors and engineers, kept in full -->
+<section id="proof" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="section-eyebrow">The Proof, For Your Auditors And Engineers</div>
     <h2>Three cryptographic layers. Each with its honest boundary.</h2>
-    <p class="section-sub">Every agent action passes through Kinetic before it happens. Nothing executes unwitnessed, and nothing is logged after the fact. Here is exactly what each layer proves — and what it does not.</p>
+    <p class="section-sub">The outcomes above rest on standard, off-the-shelf cryptography your security team can inspect. Here is exactly what each layer proves, and what it does not.</p>
     <div class="pillars">
       <div class="pillar">
         <div class="pnum">LAYER 1 · INTEGRITY</div>
         <h3>SHA-256 hash chain</h3>
-        <p>Each ledger entry is chained to the last. Any alteration, deletion, or insertion breaks the chain and every hash after it. Verified by <code>verify_chain.py</code> — pure Python, run without contacting us.</p>
-        <span class="limit">Detective, not preventive: a database superuser can disable the trigger; tampering is <em>caught</em> out-of-band, not blocked at the DB.</span>
+        <p>Each ledger entry is chained to the last. Any alteration, deletion, or insertion breaks the chain and every hash after it. Verified by <code>verify_chain.py</code>: pure Python, run without contacting us.</p>
+        <span class="limit">Detective by design: any alteration is caught out-of-band by the hash mismatch. The ledger proves integrity; it complements, not replaces, your own database access controls.</span>
       </div>
       <div class="pillar">
         <div class="pnum">LAYER 2 · BINDING</div>
         <h3>Payload fingerprint + replay</h3>
-        <p>A SHA-256 fingerprint of the agent's submitted context is bound into the record. <strong>Deterministic replay</strong> re-derives the decision and hash from the stored inputs — <code>VERIFIED</code> if they match, <code>DIVERGED</code> if not.</p>
-        <span class="limit">Proves the integrity of the agent's <em>input</em> — not the authority or truth of the source system it read.</span>
+        <p>A SHA-256 fingerprint of the agent's submitted context is bound into the record. <strong>Deterministic replay</strong> re-derives the decision and hash from the stored inputs: <code>VERIFIED</code> if they match, <code>DIVERGED</code> if not.</p>
+        <span class="limit">Proves the integrity of the agent's <em>input</em>, not the authority or truth of the source system it read.</span>
       </div>
       <div class="pillar">
         <div class="pnum">LAYER 3 · ATTESTATION</div>
         <h3>Ed25519 signature</h3>
-        <p>Each record's hash is signed with an Ed25519 key and verified against a published public key. This is <strong>authority-attested integrity</strong> — a portable governance certificate an auditor verifies offline.</p>
-        <span class="limit">In-memory key today, not hardware-rooted non-repudiation. HSM-held signing (Azure Managed HSM) is planned, not built.</span>
+        <p>Each record's hash is signed with an Ed25519 key and verified against a published public key. This is <strong>authority-attested integrity</strong>: a portable governance certificate an auditor verifies offline.</p>
+        <span class="limit">Authority-attested integrity today; hardware-rooted non-repudiation (HSM-backed signing) is on the roadmap. Key-custody details shared with design partners under NDA.</span>
       </div>
     </div>
     <div class="offer-card accent" style="margin-top:34px;">
-      <h3>What you can verify yourself — no server, no trust assumption</h3>
+      <h3>What you can verify yourself: no server, no trust assumption</h3>
       <ul>
-        <li><b>Run the verifier:</b> <code>python verify_chain.py --verify-signatures --kinetic-pubkey-file kinetic_pubkey.pem</code> — pure Python + <code>hashlib</code>, no dependency on Kinetic.</li>
-        <li><b>Prove immutability:</b> attempt an <code>UPDATE</code> on the ledger in the sovereign demo — Postgres refuses it: <code>ERROR: append-only ledger table</code>.</li>
+        <li><b>Run the verifier:</b> <code>python verify_chain.py --verify-signatures --kinetic-pubkey-file kinetic_pubkey.pem</code>: pure Python + <code>hashlib</code>, no dependency on Kinetic.</li>
+        <li><b>Prove immutability:</b> attempt an <code>UPDATE</code> on the ledger in the sovereign demo; Postgres refuses it: <code>ERROR: append-only ledger table</code>.</li>
         <li><b>Replay a decision:</b> the deterministic replay re-derives the exact outcome and hash from stored inputs.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<!-- Why Independent -->
-<section id="independence" class="independence">
+<!-- The Paper -->
+<section id="paper" class="compliance" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="wrap">
-    <div class="indep-grid">
-      <div class="indep-text">
-        <div class="section-eyebrow" style="text-align:left">The Independence Requirement</div>
-        <h2>A system cannot audit its own behavior.</h2>
-        <p>The platforms building AI agents are now also selling the tools to govern them — the same entity grading its own homework, inside its own trust boundary.</p>
-        <div class="pull">A bank cannot sign its own audit opinion. Neither can an AI platform certify its own agents.</div>
-        <p>Kinetic runs <strong>outside</strong> the system it governs: separate process, separate credentials, separate trust boundary. That architectural separation is what an auditor and a regulator are actually looking for.</p>
-        <p style="font-size:15px;">And we hold ourselves to the same standard: independent attestation of Kinetic's own controls (third-party security review, then SOC 2 Type I) is <strong>planned</strong> — because you should not have to take the word of the people who built the audit layer either.</p>
-        <a href="./The_Independence_Gap.pdf" target="_blank" rel="noopener" class="btn-ghost" style="display:inline-block;margin-top:8px;">Read the paper: The Independence Gap</a>
-      </div>
-      <div class="indep-visual">
-        <div class="indep-row"><span class="x">✕</span><span class="name">Platform governs its own agents</span><span class="verdict">self-certified</span></div>
-        <div class="indep-row"><span class="x">✕</span><span class="name">In-process governance layer</span><span class="verdict">same trust boundary</span></div>
-        <div class="indep-row"><span class="x">✕</span><span class="name">Audit log written after execution</span><span class="verdict">no prevention</span></div>
-        <div class="indep-row"><span class="check">✓</span><span class="name">Kinetic append-only, DB-enforced</span><span class="verdict">tampering detectable</span></div>
-        <div class="indep-row"><span class="check">✓</span><span class="name">Kinetic independent, pre-execution</span><span class="verdict">auditor-verifiable</span></div>
-      </div>
+    <div class="section-eyebrow">The Research</div>
+    <h2>The Independence Gap</h2>
+    <p class="section-sub">The argument in full: why a system cannot produce trustworthy evidence about its own behavior, why in-process governance fails the auditor's independence test, and what out-of-process cryptographic verification makes possible for regulated AI.</p>
+    <div class="hero-ctas">
+      <a href="https://kineticlabs.ai/The_Independence_Gap.pdf" target="_blank" rel="noopener" class="btn-primary">Read the paper (PDF)</a>
+      <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="btn-ghost">Discuss it with us</a>
     </div>
   </div>
 </section>
@@ -231,31 +273,31 @@
   <div class="wrap">
     <div class="section-eyebrow">The Offer</div>
     <h2>The 30-Day Governance Certificate Pilot</h2>
-    <p class="section-sub">Not a sale — a proof. No procurement, no license, no security-clearance gate. You bring one agent workflow (or a synthetic test case); we produce evidence you can hand to an auditor.</p>
+    <p class="section-sub">Not a sale, a proof. No procurement, no license, no security-clearance gate. You bring one agent workflow (or a synthetic test case); we produce evidence you can hand to an auditor.</p>
 
     <div style="text-align:center;margin-bottom:28px;"><span class="free-tag">FREE · design partners only</span></div>
 
     <div class="offer-card accent">
-      <h3>What we deliver</h3>
+      <h3>What you walk away with</h3>
       <ul>
-        <li><b>3 governance certificates</b> — each a machine-readable artifact: the ledger record, its Ed25519 signature, and a deterministic replay result.</li>
-        <li><b>An independent verification session</b> — your team (or your auditor) runs <code>verify_chain.py</code> and the standalone verifier locally. No dependency on our infrastructure.</li>
-        <li><b>A replay report</b> — <code>VERIFIED</code> / <code>DIVERGED</code> for each action, with a <code>policy_hash</code> fingerprint tying each result to the exact policy version that governed it.</li>
-        <li><b>A one-page limitations memo</b> — precisely what this does <em>not</em> cover (source-system truth, multi-replica rate limiting, HSM-rooted signing). We include it because independence requires stating the boundary.</li>
+        <li><b>3 governance certificates</b>, each a record your auditor accepts: the ledger entry, its signature, and a deterministic replay result.</li>
+        <li><b>An independent verification session</b>: your team (or your auditor) confirms the evidence locally. No dependency on our infrastructure.</li>
+        <li><b>A replay report</b>: a clear pass or fail for each action, tied to the exact policy version that governed it.</li>
+        <li><b>A one-page limitations memo</b>: precisely what this does <em>not</em> cover. We include it because independence requires stating the boundary.</li>
       </ul>
     </div>
 
     <div class="offer-card">
-      <h3>What you provide — pick one phase</h3>
+      <h3>What you provide: pick one phase</h3>
       <table>
         <thead><tr><th>Phase</th><th>Integration</th><th>Time</th></tr></thead>
         <tbody>
-          <tr><td><b>1 · Zero</b></td><td>A manual <code>POST</code> (curl / Postman) to <code>/api/v1/evaluate</code> with a sample agent payload.</td><td>~30 min</td></tr>
-          <tr><td><b>2 · Light</b></td><td>The <code>@governed_tool()</code> decorator on one Python function in your existing agent.</td><td>2–4 hrs</td></tr>
-          <tr><td><b>3 · Full</b></td><td>MCP proxy / connector integration. <b>Not required</b> for the pilot — reserved for a funded follow-on.</td><td>—</td></tr>
+          <tr><td><b>1 · Zero</b></td><td>A single manual call to the evaluation endpoint with a sample agent action.</td><td>~30 min</td></tr>
+          <tr><td><b>2 · Light</b></td><td>One decorator on one function in your existing agent.</td><td>2-4 hrs</td></tr>
+          <tr><td><b>3 · Full</b></td><td>Proxy / connector integration. <b>Not required</b> for the pilot; reserved for a funded follow-on.</td><td>N/A</td></tr>
         </tbody>
       </table>
-      <p style="color:var(--muted);font-size:14px;margin-top:16px;">You can also run the <b>sovereign demo bundle</b> (<code>docker-compose</code>) entirely inside your own boundary — zero cloud account, zero external network — and prove immutability yourself before engaging our hosted engine.</p>
+      <p style="color:var(--muted);font-size:14px;margin-top:16px;">You can also run the <b>sovereign demo bundle</b> entirely inside your own boundary (zero cloud account, zero external network) and prove immutability yourself before engaging our hosted engine.</p>
     </div>
   </div>
 </section>
@@ -264,14 +306,14 @@
 <section id="boundary" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="wrap">
     <div class="section-eyebrow">Read Before You Evaluate</div>
-    <h2>What Kinetic is <span style="color:var(--gold)">not</span> — yet</h2>
+    <h2>What Kinetic is <span style="color:var(--gold)">not</span>, yet</h2>
     <p class="section-sub">We list these on purpose. Knowing the boundary is what makes the proof credible.</p>
     <div class="notgrid">
       <div class="notrow"><b>Not a source-truth validator.</b> We bind the agent's payload; we do not independently reconcile it against the raw AWS/GitHub/IAM source. That module is a design concept, not built.</div>
       <div class="notrow"><b>Not an independently-attested product.</b> No SOC 2 attestation exists yet; SOC 2 Type I is planned, not started. Framework mappings are references, not audits.</div>
-      <div class="notrow"><b>Not hardware-rooted non-repudiation.</b> Signing is in-memory Ed25519 today (authority-attested integrity). Managed HSM is planned.</div>
+      <div class="notrow"><b>Not hardware-rooted non-repudiation yet.</b> Today's signing provides authority-attested integrity; HSM-backed signing is planned. Custody specifics shared under NDA.</div>
       <div class="notrow"><b>Not tactical-edge hardware.</b> Air-gapped, sovereign-deployable (a container inside your boundary) is real. Ruggedized battlefield hardware is a future profile, not the current product.</div>
-      <div class="notrow"><b>Not a cross-classification, cross-tenant view.</b> The design is federated enclaves — one isolated tenant per domain, aggregated metadata only.</div>
+      <div class="notrow"><b>Not a cross-classification, cross-tenant view.</b> The design is federated enclaves: one isolated tenant per domain, aggregated metadata only.</div>
       <div class="notrow"><b>Not kernel-layer enforcement.</b> The interceptor governs at the API layer. Syscall/kernel enforcement is a future tier.</div>
     </div>
   </div>
@@ -291,7 +333,7 @@
       <div class="comp-badge"><b>ISO/IEC</b> 42001</div>
       <div class="comp-badge">Ontario <b>Bill 194</b></div>
     </div>
-    <p class="comp-note"><b>Framework mapping only — not an attestation.</b> Kinetic has no completed independent audit yet; SOC 2 Type I is planned. Each mapping is an evidence structure with a documented gap register, not a certification.</p>
+    <p class="comp-note"><b>Framework mapping only, not an attestation.</b> Kinetic has no completed independent audit yet; SOC 2 Type I is planned. Each mapping is an evidence structure with a documented gap register, not a certification.</p>
   </div>
 </section>
 
@@ -299,7 +341,7 @@
 <section id="contact" class="cta-final">
   <div class="wrap">
     <div class="section-eyebrow">Start</div>
-    <h2>Get a certificate your auditor can verify.</h2>
+    <h2>Get proof your auditor can verify.</h2>
     <p>A 30-minute walkthrough, then the pilot. For risk, compliance, and security leaders.</p>
     <div class="hero-ctas">
       <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="btn-primary">Start a 30-day pilot</a>
