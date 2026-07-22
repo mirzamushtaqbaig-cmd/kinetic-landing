@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinetic AI: Independent Verifier</title>
+<meta name="description" content="Verify a Kinetic governance certificate entirely in your browser. Recomputes the SHA-256 record hash and checks the Ed25519 authority signature against the published public key. No server, no data leaves your machine.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--teal:#00c2cb;--gold:#c9a227;--red:#e05252;--green:#25c26a;--bg:#030b15;--bg2:#071422;--border:rgba(0,194,203,0.15);--muted:#6a8fa8;--text:#d8e6f0;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 24px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.15em;color:var(--teal);text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+  .sub{color:var(--muted);font-size:16px;margin-bottom:14px;max-width:660px}
+  .pledge{color:var(--text);font-size:14px;border-left:3px solid var(--teal);padding-left:14px;margin-bottom:30px;max-width:660px}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:26px}
+  label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px;font-weight:600}
+  label:first-child{margin-top:0}
+  textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;color:var(--text);font-size:12.5px;font-family:'JetBrains Mono',monospace;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--teal)}
+  #cert{min-height:150px}
+  #pem{min-height:88px}
+  .btns{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+  button{background:var(--teal);color:var(--bg);border:none;border-radius:8px;padding:13px 26px;font-weight:700;font-size:15px;cursor:pointer;font-family:'Inter',sans-serif}
+  button.ghost{background:transparent;color:var(--text);border:1px solid var(--border);font-weight:600}
+  button.ghost:hover{border-color:var(--teal)}
+  .result{margin-top:26px;display:none}
+  .banner{border-radius:10px;padding:20px 22px;display:flex;align-items:center;gap:16px;margin-bottom:20px}
+  .banner .glyph{font-size:30px;line-height:1}
+  .banner .headline{font-size:19px;font-weight:800}
+  .banner .say{font-size:13px;color:var(--muted);margin-top:2px}
+  .ok{background:rgba(37,194,106,.10);border:1px solid rgba(37,194,106,.4)}
+  .ok .glyph,.ok .headline{color:var(--green)}
+  .bad{background:rgba(224,82,82,.10);border:1px solid rgba(224,82,82,.4)}
+  .bad .glyph,.bad .headline{color:var(--red)}
+  .warn{background:rgba(201,162,39,.10);border:1px solid rgba(201,162,39,.4)}
+  .warn .glyph,.warn .headline{color:var(--gold)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+  th{color:var(--muted);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  td.mono{color:var(--text);word-break:break-all;font-family:'JetBrains Mono',monospace;font-size:12px}
+  .pass{color:var(--green);font-weight:700}
+  .fail{color:var(--red);font-weight:700}
+  .skip{color:var(--muted)}
+  .err{color:var(--red);font-size:14px;margin-top:16px;display:none}
+  .foot{color:var(--muted);font-size:13px;margin-top:24px;border-left:2px solid var(--teal);padding-left:14px}
+  .foot code{font-family:'JetBrains Mono',monospace;color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Independent Verifier</div>
+  <h1>Verify a Kinetic governance certificate</h1>
+  <p class="sub">Paste a governance certificate and the published public key. Your browser recomputes the SHA-256 record hash and checks the Ed25519 authority signature.</p>
+  <p class="pledge">Everything runs on this page, in your browser. Nothing is uploaded, and there is no call to Kinetic. This is the point: you do not have to trust our server to confirm a record is authentic and unaltered.</p>
+
+  <div class="card">
+    <label for="cert">Governance certificate (JSON from <span class="mono">/api/v1/governance/certificate/{id}</span>)</label>
+    <textarea id="cert" placeholder='{ "record_hash": "...", "kinetic_signature": "...", "kinetic_key_id": "...", ... }'></textarea>
+
+    <label for="pem">Published Ed25519 public key (PEM)</label>
+    <textarea id="pem" placeholder="-----BEGIN PUBLIC KEY-----&#10;...&#10;-----END PUBLIC KEY-----"></textarea>
+
+    <div class="btns">
+      <button onclick="runVerify()">Verify certificate</button>
+      <button class="ghost" onclick="loadSample()">Load a sample</button>
+    </div>
+
+    <div class="err" id="err"></div>
+
+    <div class="result" id="result">
+      <div class="banner" id="banner">
+        <div class="glyph" id="glyph"></div>
+        <div>
+          <div class="headline" id="headline"></div>
+          <div class="say" id="say"></div>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <div class="foot">
+      This page verifies one certificate. To re-derive an entire ledger's hash chain independently, export it and run <code>verify_chain.py --verify-signatures</code> against the published key. The signature is authority-attested integrity, not hardware-rooted non-repudiation (HSM signing is on the roadmap).
+    </div>
+  </div>
+</div>
+
+<script>
+const SAMPLE_CERT = {
+  "certificate_version":"v1","record_id":"8f3c1a2b-4d5e-6f70-8192-a3b4c5d6e7f8",
+  "agent_id":"financial-auditor-01","tool":"execute_sql",
+  "evaluation_timestamp":"2026-07-19T14:03:22.511000+00:00","decision":"BLOCKED","risk_score":0.94,
+  "record_hash":"53a2a1389bbf0a2214ec02dbebc86b479e646d089c8f26b00949349965855388",
+  "prev_hash":"genesis_hash_0000000000000000",
+  "kinetic_signature":"1p/eOoyA3f0BENtLBsJBA9/GarrzfgFKipFrRHxrGs7E0fzT2ieLGRt4jsjVWCc/dDDU4FnOkE450ZlQTA2SBA==",
+  "kinetic_key_id":"ed25519-5d6c7cb68415a754","signature_status":"authority-attested"
+};
+const SAMPLE_PEM = "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAMMhBGBKO5IwCatehfHKuS1w9+XTHeZKbqO3LJelQWWw=\n-----END PUBLIC KEY-----";
+
+function loadSample(){
+  document.getElementById('cert').value = JSON.stringify(SAMPLE_CERT, null, 2);
+  document.getElementById('pem').value = SAMPLE_PEM;
+}
+function showErr(m){ const e=document.getElementById('err'); e.textContent=m; e.style.display='block'; document.getElementById('result').style.display='none'; }
+function b64ToBytes(b64){ const s=atob(b64.replace(/\s/g,'')); const a=new Uint8Array(s.length); for(let i=0;i<s.length;i++)a[i]=s.charCodeAt(i); return a; }
+function pemToDer(pem){ const b=pem.replace(/-----[^-]+-----/g,'').replace(/\s/g,''); return b64ToBytes(b); }
+function toHex(buf){ return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
+async function sha256hex(str){ const h=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)); return toHex(h); }
+
+async function runVerify(){
+  document.getElementById('err').style.display='none';
+  let cert;
+  try { cert = JSON.parse(document.getElementById('cert').value); }
+  catch(e){ return showErr('The certificate is not valid JSON.'); }
+  if(!cert.record_hash){ return showErr('Certificate is missing record_hash.'); }
+  const pem = document.getElementById('pem').value.trim();
+
+  const rows = [];
+  let sigChecked=false, sigOk=false, keyIdOk=true, keyIdRecomputed=null, cryptoErr=null;
+
+  // Layer 1: recompute the record hash from the stored fields.
+  const prev = cert.prev_hash || 'genesis_hash_0000000000000000';
+  const payload = `${cert.record_id}${cert.evaluation_timestamp}${cert.agent_id}${cert.tool}${cert.risk_score}${cert.decision}${prev}`;
+  const recomputed = await sha256hex(payload);
+  const hashOk = (recomputed === cert.record_hash);
+
+  // Layer 3: Ed25519 signature over the record_hash string.
+  if(cert.kinetic_signature && pem){
+    try{
+      const key = await crypto.subtle.importKey('spki', pemToDer(pem), {name:'Ed25519'}, false, ['verify']);
+      const sig = b64ToBytes(cert.kinetic_signature);
+      const msg = new TextEncoder().encode(cert.record_hash);
+      sigOk = await crypto.subtle.verify('Ed25519', key, sig, msg);
+      sigChecked = true;
+      const raw = pemToDer(pem).slice(-32);
+      keyIdRecomputed = 'ed25519-' + (await sha256hex_bytes(raw)).slice(0,16);
+      if(cert.kinetic_key_id) keyIdOk = (keyIdRecomputed === cert.kinetic_key_id);
+    }catch(e){ cryptoErr = e.message; }
+  }
+
+  // Rows
+  rows.push(['Record hash (SHA-256 recompute)', hashOk?'<span class="pass">matches</span>':'<span class="fail">differs</span>',
+    hashOk ? 'Recomputed hash equals the stored record_hash.' : 'Recomputed hash differs. If fields look right, the server timestamp/number formatting must match exactly; the signature below is authoritative.']);
+  if(cryptoErr){
+    rows.push(['Ed25519 signature', '<span class="fail">could not check</span>', 'This browser could not run Ed25519 WebCrypto. Use the latest Chrome, Firefox, or Safari, or run verify_chain.py. ('+cryptoErr+')']);
+  } else if(sigChecked){
+    rows.push(['Ed25519 signature', sigOk?'<span class="pass">valid</span>':'<span class="fail">invalid</span>',
+      sigOk ? 'The published key signed exactly this record_hash.' : 'Signature does not verify against the supplied public key.']);
+    rows.push(['Key id', keyIdOk?'<span class="pass">matches</span>':'<span class="fail">mismatch</span>',
+      'stored: '+(cert.kinetic_key_id||'none')+' | recomputed: '+keyIdRecomputed]);
+  } else {
+    rows.push(['Ed25519 signature', '<span class="skip">not checked</span>',
+      !cert.kinetic_signature ? 'This certificate carries no signature (signing was disabled when it was written).' : 'Paste the published public key to check the signature.']);
+  }
+  rows.push(['Decision', '<span class="skip">'+(cert.decision||'n/a')+'</span>', 'Risk score: '+(cert.risk_score!==undefined?cert.risk_score:'n/a')]);
+
+  // Headline
+  let cls,glyph,head,say;
+  if(sigChecked && !cryptoErr){
+    if(sigOk && keyIdOk){ cls='ok'; glyph='✓'; head='AUTHORITY-ATTESTED: VERIFIED'; say='This record was signed by the published Kinetic key and has not been altered.'; }
+    else { cls='bad'; glyph='✕'; head = sigOk ? 'KEY-ID MISMATCH' : 'SIGNATURE INVALID'; say='This certificate does not verify against the supplied public key. Do not rely on it.'; }
+  } else if(cryptoErr){
+    cls = hashOk ? 'warn' : 'bad'; glyph = hashOk ? '!' : '✕';
+    head = hashOk ? 'HASH VERIFIED, SIGNATURE NOT CHECKED' : 'HASH MISMATCH';
+    say = 'Signature check unavailable in this browser. The SHA-256 recompute is shown above.';
+  } else {
+    if(hashOk){ cls='warn'; glyph='!'; head='HASH VERIFIED (UNSIGNED OR NO KEY)'; say='The record hash recomputes correctly. Provide the public key to check the authority signature.'; }
+    else { cls='bad'; glyph='✕'; head='HASH MISMATCH'; say='The recomputed hash does not match the stored record_hash.'; }
+  }
+  const b=document.getElementById('banner'); b.className='banner '+cls;
+  document.getElementById('glyph').textContent=glyph;
+  document.getElementById('headline').textContent=head;
+  document.getElementById('say').textContent=say;
+  document.getElementById('rows').innerHTML = rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td class="mono">${r[2]}</td></tr>`).join('');
+  document.getElementById('result').style.display='block';
+}
+
+async function sha256hex_bytes(bytes){ const h=await crypto.subtle.digest('SHA-256', bytes); return toHex(h); }
+</script>
+</body>
+</html>
