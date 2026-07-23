@@ -47,6 +47,7 @@
   .statuspills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 0 auto 36px; max-width: 760px; }
   .spill { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; }
   .spill b { color: var(--teal); font-weight: 600; }
+  a.spill:hover { border-color: var(--teal); color: var(--text); }
   .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
   .btn-primary { background: var(--teal); color: var(--bg); padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform 0.15s, box-shadow 0.2s; }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,194,203,0.25); }
@@ -152,6 +153,7 @@
       <span class="spill">Canadian-controlled</span>
       <span class="spill">Independent &amp; auditor-verifiable</span>
       <span class="spill"><b>NATO NCAGE L13Z9</b> (eligibility, not accreditation)</span>
+      <a class="spill" href="https://kineticlabs.ai/verify.html" style="text-decoration:none;color:var(--muted);"><b>Verify a certificate</b> in your browser &rarr;</a>
     </div>
     <div class="hero-ctas">
       <a href="mailto:mirza@kineticlabs.ai?subject=Kinetic%20Governance%20Certificate%20Pilot" class="btn-primary">Start a 30-day pilot</a>
@@ -334,6 +336,7 @@
       <div class="comp-badge"><b>ISO/IEC</b> 42001</div>
       <div class="comp-badge">Ontario <b>Bill 194</b></div>
     </div>
+    <p class="comp-note" style="color:var(--text);">Regulators are shifting from point-in-time audits toward ongoing monitoring (for example, OSFI's E-23 model-risk guidance). A continuous, independently verifiable ledger is evidence you can produce at any time, not just at audit.</p>
     <p class="comp-note"><b>Framework mapping only, not an attestation.</b> Kinetic has no completed independent audit yet; SOC 2 Type I is planned. Each mapping is an evidence structure with a documented gap register, not a certification.</p>
   </div>
 </section>
